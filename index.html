@@ -1,0 +1,1598 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>ClarityFinance</title>
+<style>
+/* ═══════════════════════════════════════════
+   ClarityFinance — Design v7.1
+   ═══════════════════════════════════════════ */
+
+/* ─── FONTS ─── */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ─── TOKENS: LIGHT ─── */
+:root {
+  --bg:        #F4F6F2;
+  --surface:   #FFFFFF;
+  --surface2:  #EEF0EC;
+  --surface3:  #E6E9E3;
+  --ink:       #141C14;
+  --ink2:      #3A4238;
+  --muted:     #7A8578;
+  --subtle:    #A8B0A4;
+
+  --border:    #DDE1D9;
+  --border2:   #C8CEC4;
+
+  --green:     #2A6048;
+  --green-h:   #1E4E38;
+  --green2:    #4CAF7A;
+  --green3:    #C8EDD6;
+  --green4:    #EBF7EF;
+  --green5:    #F4FCF6;
+
+  --amber:     #C27A0A;
+  --amber2:    #FEF0C7;
+  --red:       #C0392B;
+  --red2:      #FDECEA;
+  --blue:      #1A56DB;
+  --blue2:     #EBF3FF;
+
+  --shadow-s:  0 1px 4px rgba(0,0,0,.05), 0 2px 10px rgba(0,0,0,.04);
+  --shadow-m:  0 4px 16px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
+  --shadow-l:  0 8px 36px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.05);
+
+  --r-s:   9px;
+  --r-m:   14px;
+  --r-l:   20px;
+  --r-xl:  26px;
+
+  --topbar-h: 58px;
+  --nav-h:    66px;
+}
+
+/* ─── TOKENS: DARK ─── */
+[data-theme="dark"] {
+  --bg:        #0E1210;
+  --surface:   #181E18;
+  --surface2:  #222820;
+  --surface3:  #2A3028;
+  --ink:       #EDF2EB;
+  --ink2:      #9BA897;
+  --muted:     #5E6E5A;
+  --subtle:    #3E4E3A;
+
+  --border:    #2A3428;
+  --border2:   #384438;
+
+  --green3:    #1A3D2A;
+  --green4:    #122418;
+  --green5:    #0E1C12;
+  --amber2:    #2A1E04;
+  --red2:      #280C08;
+  --blue2:     #0A1630;
+
+  --shadow-s:  0 1px 4px rgba(0,0,0,.4);
+  --shadow-m:  0 4px 16px rgba(0,0,0,.5);
+  --shadow-l:  0 8px 36px rgba(0,0,0,.6);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+body {
+  font-family: 'Tajawal', 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background .3s, color .3s;
+}
+button  { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── SCREENS ─── */
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg);
+  padding-top: var(--topbar-h);
+}
+.screen.has-nav { padding-bottom: var(--nav-h); }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  z-index: 300;
+  background: rgba(244,246,242,.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  transition: background .3s, border-color .3s;
+}
+[data-theme="dark"] .topbar {
+  background: rgba(14,18,16,.88);
+}
+
+.brand {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.4px;
+  user-select: none;
+}
+.brand em { color: var(--green); font-style: normal; }
+
+.topbar-actions { display: flex; align-items: center; gap: 7px; }
+
+/* Icon Button */
+.icon-btn {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  transition: background .15s, color .15s;
+}
+.icon-btn:hover { background: var(--surface2); color: var(--ink); }
+.icon-btn svg { width: 17px; height: 17px; stroke: currentColor; }
+
+/* Power button */
+.power-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--subtle);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  transition: all .2s;
+}
+.power-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red2);
+  transform: rotate(12deg);
+}
+.power-btn svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+
+/* Text Button */
+.txt-btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all .15s;
+  letter-spacing: .1px;
+}
+.txt-btn:hover { color: var(--ink); border-color: var(--border2); background: var(--surface2); }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 300;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  transition: background .3s, border-color .3s;
+}
+[data-theme="dark"] .bottom-nav {
+  background: rgba(24,30,24,.92);
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--subtle);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15px;
+  transition: color .2s;
+  padding-top: 3px;
+  position: relative;
+}
+.nav-item.active { color: var(--green); }
+.nav-item svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.nav-item.active svg { stroke: var(--green); }
+.nav-pip {
+  position: absolute;
+  top: 7px;
+  width: 18px; height: 3px;
+  border-radius: 2px;
+  background: var(--green);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.nav-item.active .nav-pip { opacity: 1; }
+
+/* ─── PAGE WRAPPER ─── */
+.page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 18px 36px;
+}
+.page-wide { max-width: 740px; }
+
+/* ─── TYPOGRAPHY ─── */
+.t-display {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(26px, 7vw, 38px);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.8px;
+  line-height: 1.12;
+}
+.t-h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.25px;
+  line-height: 1.3;
+}
+.t-h3 {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+.t-body { font-size: 14px; color: var(--ink2); line-height: 1.65; }
+.t-small { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.t-mono {
+  font-family: 'DM Sans', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--surface);
+  border-radius: var(--r-l);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-s);
+  padding: 20px;
+  transition: background .3s, border-color .3s;
+}
+.card + .card { margin-top: 12px; }
+.card-sm { padding: 14px 16px; border-radius: var(--r-m); }
+
+/* ─── FORM ─── */
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink2);
+  margin-bottom: 6px;
+  letter-spacing: .1px;
+}
+.field input,
+.field select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border-radius: var(--r-m);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14.5px;
+  outline: none;
+  transition: border .18s, background .25s, box-shadow .18s;
+  -webkit-appearance: none;
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--green2);
+  box-shadow: 0 0 0 3px rgba(76,175,122,.12);
+}
+.field input::placeholder { color: var(--subtle); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 24px;
+  border-radius: var(--r-m);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: .05px;
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+}
+.btn svg { width: 16px; height: 16px; stroke: currentColor; flex-shrink: 0; }
+.btn-full { width: 100%; }
+.btn-sm { height: 36px; padding: 0 14px; font-size: 12.5px; border-radius: 10px; }
+
+.btn-primary {
+  background: linear-gradient(160deg, #388060 0%, var(--green) 100%);
+  color: white;
+  box-shadow: 0 3px 16px rgba(42,96,72,.32), 0 1px 4px rgba(42,96,72,.2);
+}
+.btn-primary:hover {
+  background: linear-gradient(160deg, #3A8866 0%, #1E4E38 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(42,96,72,.38), 0 2px 6px rgba(42,96,72,.22);
+}
+.btn-primary:active { transform: none; box-shadow: none; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--green);
+  border: 1.5px solid var(--green2);
+}
+.btn-outline:hover { background: var(--green4); border-color: var(--green); }
+
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--ink2);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--surface3); border-color: var(--border2); }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge-green  { background: var(--green3);  color: var(--green); }
+.badge-amber  { background: var(--amber2);  color: var(--amber); }
+.badge-red    { background: var(--red2);    color: var(--red); }
+.badge-blue   { background: var(--blue2);   color: var(--blue); }
+.badge-muted  { background: var(--surface2); color: var(--muted); }
+
+/* ─── PROGRESS ─── */
+.progress {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--green2), var(--green));
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── DIVIDER ─── */
+.divider { height: 1px; background: var(--border); margin: 20px 0; }
+.divider-or {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; color: var(--subtle); margin: 20px 0;
+}
+.divider-or::before, .divider-or::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ─── SECTION HEADER ─── */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/* ─── STEP DOTS ─── */
+.step-dots {
+  display: flex; gap: 5px; margin-bottom: 24px;
+}
+.step-dot {
+  flex: 1; height: 3px; border-radius: 3px;
+  background: var(--border);
+  transition: background .35s;
+}
+.step-dot.done   { background: var(--green3); }
+.step-dot.active { background: var(--green); }
+
+/* ─── KPI GRID ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.kpi {
+  background: var(--surface);
+  border-radius: var(--r-m);
+  border: 1px solid var(--border);
+  padding: 16px;
+  box-shadow: var(--shadow-s);
+  position: relative;
+  overflow: hidden;
+  transition: background .3s, border-color .3s;
+}
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--r-m) var(--r-m) 0 0;
+}
+.kpi-green::before  { background: linear-gradient(90deg, var(--green3), var(--green2)); }
+.kpi-amber::before  { background: linear-gradient(90deg, var(--amber2), var(--amber)); }
+.kpi-red::before    { background: linear-gradient(90deg, var(--red2), var(--red)); }
+.kpi-blue::before   { background: linear-gradient(90deg, var(--blue2), var(--blue)); }
+
+.kpi-label { font-size: 10px; font-weight: 800; color: var(--muted); letter-spacing: .6px; text-transform: uppercase; margin-bottom: 8px; }
+.kpi-value { font-family: 'DM Sans', sans-serif; font-size: 23px; font-weight: 700; color: var(--ink); letter-spacing: -.5px; line-height: 1; }
+.kpi-sub   { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.kpi-delta { font-size: 11px; font-weight: 700; margin-top: 7px; }
+.up   { color: var(--green2); }
+.down { color: var(--red); }
+
+/* ─── HEALTH CARD ─── */
+.health-card {
+  background: linear-gradient(140deg, #2A6048 0%, #1A3D2E 55%, #142E22 100%);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 32px rgba(26,61,46,.35);
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+}
+.health-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(76,175,122,.08);
+}
+.health-eyebrow { font-size: 9px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; opacity: .5; margin-bottom: 6px; }
+.health-score   { font-family: 'DM Sans', sans-serif; font-size: 60px; font-weight: 700; line-height: 1; letter-spacing: -2.5px; }
+.health-status  { font-size: 13px; opacity: .65; margin-top: 3px; }
+.health-pills   { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.health-pill {
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.85);
+}
+.health-pill.ok   { background: rgba(76,175,122,.28); color: #9EEDC0; }
+.health-pill.warn { background: rgba(194,122,10,.28); color: #FDD07A; }
+.health-pill.bad  { background: rgba(192,57,43,.28); color: #FFAAA0; }
+
+/* ─── AI INSIGHT CARD ─── */
+.ai-card {
+  background: var(--green5);
+  border: 1px solid var(--green3);
+  border-radius: var(--r-l);
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  transition: background .3s;
+}
+[data-theme="dark"] .ai-card { background: var(--green4); border-color: var(--green3); }
+.ai-icon {
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: var(--green3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.ai-eyebrow { font-size: 9px; font-weight: 800; color: var(--green); letter-spacing: 1.1px; text-transform: uppercase; margin-bottom: 4px; }
+.ai-text    { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+
+/* ─── ALERT CARD ─── */
+.alert {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--r-m);
+  border-right: 3px solid transparent;
+  margin-bottom: 8px;
+  transition: background .3s;
+}
+.alert-red    { background: var(--red2);   border-color: var(--red); }
+.alert-amber  { background: var(--amber2); border-color: var(--amber); }
+.alert-green  { background: var(--green4); border-color: var(--green2); }
+.alert-icon   { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-title  { font-size: 12.5px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.alert-body   { font-size: 11.5px; color: var(--ink2); line-height: 1.55; }
+
+/* ─── CHART CARD ─── */
+.chart-card {
+  background: var(--surface);
+  border-radius: var(--r-l);
+  border: 1px solid var(--border);
+  padding: 18px;
+  box-shadow: var(--shadow-s);
+  margin-bottom: 12px;
+  transition: background .3s, border-color .3s;
+}
+.chart-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.chart-legend {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 11px; color: var(--muted); font-weight: 600;
+}
+.legend-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ─── SVG CHARTS ─── */
+.chart-svg {
+  width: 100%;
+  overflow: visible;
+  display: block;
+}
+.chart-grid-line { stroke: var(--border); stroke-width: 1; }
+.chart-label     { fill: var(--muted); font-size: 9px; font-family: 'Tajawal', sans-serif; }
+.chart-bar-rev   { fill: var(--green2); opacity: .82; }
+.chart-bar-exp   { fill: var(--red);    opacity: .65; }
+
+/* ─── DROP ZONE ─── */
+.drop-zone {
+  border: 2px dashed var(--border2);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  padding: 38px 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .22s;
+  margin-bottom: 14px;
+}
+.drop-zone:hover, .drop-zone.drag {
+  border-color: var(--green2);
+  background: var(--green5);
+  border-style: solid;
+}
+.drop-icon {
+  width: 60px; height: 60px;
+  border-radius: 18px;
+  background: var(--green4);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  border: 1px solid var(--green3);
+}
+.drop-icon svg { width: 28px; height: 28px; stroke: var(--green); stroke-width: 1.8; }
+.file-chips { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.file-chip {
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  font-size: 10px; font-weight: 700; color: var(--muted);
+}
+
+/* ─── FILE PREVIEW ─── */
+.file-preview {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: var(--green5);
+  border: 1.5px solid var(--green3);
+  border-radius: var(--r-m);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  transition: background .3s;
+}
+.file-preview.show { display: flex; }
+.file-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #388060, var(--green));
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(42,96,72,.25);
+}
+.file-icon svg { width: 20px; height: 20px; stroke: white; stroke-width: 2; }
+
+/* ─── SPINNER ─── */
+.spinner {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  border-right-color: var(--green2);
+  animation: spin .8s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.val-step {
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: color .3s, font-weight .3s, opacity .3s;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-1 { animation: fadeUp .32s .00s both; }
+.anim-2 { animation: fadeUp .32s .06s both; }
+.anim-3 { animation: fadeUp .32s .12s both; }
+.anim-4 { animation: fadeUp .32s .18s both; }
+.anim-5 { animation: fadeUp .32s .24s both; }
+.anim-6 { animation: fadeUp .32s .30s both; }
+
+/* ─── TABLE ─── */
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th {
+  text-align: right; padding: 9px 13px;
+  font-size: 10px; font-weight: 800; color: var(--muted);
+  letter-spacing: .7px; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+[dir="ltr"] .tbl th { text-align: left; }
+.tbl td {
+  padding: 12px 13px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px; color: var(--ink2);
+  vertical-align: middle;
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: var(--surface2); }
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex; gap: 3px;
+  background: var(--surface2);
+  border-radius: 12px; padding: 3px;
+  margin-bottom: 16px;
+}
+.tab {
+  flex: 1; padding: 8px 8px;
+  border-radius: 10px;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-align: center; cursor: pointer;
+  transition: all .18s;
+}
+.tab.active {
+  background: var(--surface);
+  color: var(--green);
+  box-shadow: var(--shadow-s);
+}
+
+/* ─── LOGIN SPECIFIC ─── */
+.login-mark {
+  width: 72px; height: 72px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #3A8866, var(--green));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: 0 10px 32px rgba(42,96,72,.34), 0 2px 8px rgba(42,96,72,.2);
+}
+.login-mark svg { width: 34px; height: 34px; stroke: white; stroke-width: 2; }
+
+/* ─── CONFIDENCE BADGE ─── */
+.conf-high   { background: var(--green3); color: var(--green); }
+.conf-medium { background: var(--amber2); color: var(--amber); }
+.conf-low    { background: var(--red2);   color: var(--red); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 480px) {
+  .page          { padding: 20px 14px 32px; }
+  .kpi-value     { font-size: 20px; }
+  .health-score  { font-size: 50px; }
+  .t-display     { font-size: 25px; }
+  .tbl th, .tbl td { padding: 10px 11px; }
+}
+
+/* ─── MAPPING ENHANCED ─── */
+.map-summary-bar {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-l);
+  padding: 14px 16px;
+  gap: 10px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-s);
+}
+.map-sum-item { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; }
+.map-sum-num { font-family: 'DM Sans', sans-serif; font-size: 22px; font-weight: 700; line-height: 1; }
+.map-sum-label { font-size: 10px; color: var(--muted); font-weight: 600; text-align: center; }
+.map-sum-auto .map-sum-num   { color: var(--green); }
+.map-sum-review .map-sum-num { color: var(--amber); }
+.map-sum-manual .map-sum-num { color: var(--red); }
+.map-sum-divider { width: 1px; height: 32px; background: var(--border); flex-shrink: 0; }
+
+/* Category accordion */
+.map-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-m);
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background .15s;
+}
+.map-cat-header:hover { background: var(--surface2); }
+.map-cat-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.map-cat-info { flex: 1; min-width: 0; }
+.map-cat-name { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.map-cat-sub  { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.map-cat-arrow { width: 16px; height: 16px; stroke: var(--subtle); flex-shrink: 0; transition: transform .2s; }
+.map-cat-header.open .map-cat-arrow { transform: rotate(180deg); }
+
+/* Category body */
+.map-cat-body {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-m);
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+/* Map item */
+.map-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+.map-item:hover { background: var(--surface2); }
+.map-item-main { flex: 1; min-width: 0; }
+.map-item-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.map-item-cat  { font-size: 11px; color: var(--muted); }
+.map-item-end  { display: flex; align-items: center; gap: 8px; }
+.map-item[data-status="auto"] { display: flex; align-items: center; gap: 12px; }
+.map-check { color: var(--green); font-weight: 700; font-size: 14px; }
+
+/* Confidence pills */
+.conf-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.conf-high   { background: var(--green3); color: var(--green); }
+.conf-medium { background: var(--amber2); color: var(--amber); }
+.conf-low    { background: var(--red2);   color: var(--red); }
+
+/* Review / manual items */
+.map-item-review { background: var(--amber2) !important; border-right: 3px solid var(--amber); }
+.map-item-manual { background: var(--red2)   !important; border-right: 3px solid var(--red); }
+.map-item-done   { background: var(--green5) !important; border-right: 3px solid var(--green2); opacity: .7; }
+.map-review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.map-review-actions { display: flex; gap: 8px; align-items: center; }
+.map-select {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12.5px;
+  font-family: inherit;
+  outline: none;
+  -webkit-appearance: none;
+}
+.map-select:focus { border-color: var(--green2); }
+
+/* ─── DUE DILIGENCE ─── */
+.dd-verdict {
+  background: linear-gradient(140deg, #1A3D2E, #0E2018);
+  border-radius: var(--r-xl);
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 28px rgba(14,32,24,.4);
+}
+.dd-verdict-label { font-size: 9px; font-weight: 800; letter-spacing: 1.2px; color: rgba(255,255,255,.4); text-transform: uppercase; margin-bottom: 6px; }
+.dd-verdict-level { font-family: 'DM Sans', sans-serif; font-size: 22px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.dd-low    { color: #6EDFA0; }
+.dd-medium { color: #FDD07A; }
+.dd-high   { color: #FF8B7A; }
+.dd-verdict-sub { font-size: 11px; color: rgba(255,255,255,.5); }
+.dd-gauge { text-align: center; }
+.dd-gauge-label { font-size: 10px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+/* DD sections */
+.dd-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-l);
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-s);
+}
+.dd-section-danger { border-color: #FECACA; }
+.dd-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 18px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.dd-section-head:hover { background: var(--surface2); }
+.dd-section-icon  { font-size: 18px; flex-shrink: 0; }
+.dd-section-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.dd-arrow { width: 16px; height: 16px; transition: transform .22s; flex-shrink: 0; }
+.dd-section-head.open .dd-arrow { transform: rotate(180deg); }
+.dd-section-body { padding: 0 18px 16px; border-top: 1px solid var(--border); padding-top: 14px; }
+
+/* DD metrics */
+.dd-metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dd-metric { background: var(--bg); border-radius: var(--r-m); padding: 12px 14px; border: 1px solid var(--border); }
+.dd-metric-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .4px; text-transform: uppercase; margin-bottom: 5px; }
+.dd-metric-value { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -.4px; line-height: 1; }
+.dd-metric-delta { font-size: 11px; font-weight: 700; margin-top: 4px; }
+
+/* DD ratios */
+.dd-ratio-list { display: flex; flex-direction: column; gap: 0; }
+.dd-ratio { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.dd-ratio-info { margin-bottom: 8px; }
+.dd-ratio-name  { font-size: 13px; font-weight: 600; color: var(--ink); }
+.dd-ratio-bench { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.dd-ratio-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.dd-ratio-val { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; min-width: 36px; }
+.dd-val-ok   { color: var(--green); }
+.dd-val-warn { color: var(--amber); }
+.dd-val-bad  { color: var(--red); }
+.dd-bar { flex: 1; height: 7px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
+.dd-bar-fill { height: 100%; border-radius: 6px; transition: width .6s ease; }
+.dd-bar-ok   { background: linear-gradient(90deg, var(--green3), var(--green2)); }
+.dd-bar-warn { background: linear-gradient(90deg, var(--amber2), var(--amber)); }
+.dd-bar-bad  { background: linear-gradient(90deg, var(--red2), var(--red)); }
+
+/* DD flags */
+.dd-flag { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.dd-flag-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.dd-flag-critical { border-right: 3px solid var(--red); padding-right: 10px; background: var(--red2); margin: 0 -18px; padding-left: 18px; padding-right: 18px; }
+.dd-flag-warn { }
+.dd-flag-title { font-size: 12.5px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.dd-flag-desc  { font-size: 11.5px; color: var(--ink2); line-height: 1.5; }
+
+/* DD recommendation */
+.dd-recommendation {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-l);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-s);
+}
+.dd-rec-label { font-size: 9px; font-weight: 800; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.dd-rec-levels { display: flex; gap: 6px; margin-bottom: 14px; }
+.dd-rec-level { flex: 1; padding: 8px; text-align: center; border-radius: var(--r-s); font-size: 12px; font-weight: 700; }
+.dd-rec-inactive { background: var(--surface2); color: var(--muted); }
+.dd-rec-active-low    { background: var(--green3);  color: var(--green); border: 2px solid var(--green2); }
+.dd-rec-active-medium { background: var(--amber2);  color: var(--amber); border: 2px solid var(--amber); }
+.dd-rec-active-high   { background: var(--red2);    color: var(--red);   border: 2px solid var(--red); }
+.dd-rec-text { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 1: LOGIN
+     ═══════════════════════════════════════════ -->
+<div class="screen" id="s-login">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">Clarity<em>Finance</em></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="CF.toggleTheme()" title="Dark Mode">
+        <span class="theme-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </span>
+      </button>
+      <button class="txt-btn lang-toggle" onclick="CF.toggleLang()">EN</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="page">
+
+    <!-- Hero -->
+    <div style="text-align:center; padding: 40px 0 30px;" class="anim-1">
+      <div class="login-mark">
+        <svg viewBox="0 0 34 34" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4,22 12,13 19,18 30,7"/>
+          <polyline points="23,7 30,7 30,14"/>
+        </svg>
+      </div>
+      <div class="t-display" data-ar="وضوح مالي حقيقي" data-en="Real Financial Clarity">وضوح مالي حقيقي</div>
+      <div class="t-small" style="margin-top:8px" data-ar="من بيانات خام إلى قرارات واضحة · أقل من 5 دقائق" data-en="From raw numbers to clear decisions · under 5 minutes">من بيانات خام إلى قرارات واضحة · أقل من 5 دقائق</div>
+    </div>
+
+    <!-- Card -->
+    <div class="card anim-2">
+      <div class="t-h2" style="margin-bottom:18px" data-ar="تسجيل الدخول" data-en="Sign In">تسجيل الدخول</div>
+
+      <div class="field">
+        <label data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label>
+        <input type="email" placeholder="name@company.sa" id="inp-email" autocomplete="email"/>
+      </div>
+
+      <div class="field" style="margin-bottom:18px">
+        <label data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
+        <input type="password" placeholder="••••••••" id="inp-pass" autocomplete="current-password"/>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="CF.show('upload')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        <span data-ar="دخول" data-en="Sign In">دخول</span>
+      </button>
+
+      <div class="divider-or">
+        <span data-ar="أو" data-en="or">أو</span>
+      </div>
+
+      <button class="btn btn-ghost btn-full" onclick="CF.show('upload')" style="margin-bottom:8px">
+        <span data-ar="تجربة بدون حساب" data-en="Try without account">تجربة بدون حساب</span>
+      </button>
+    </div>
+
+    <!-- Footer note -->
+    <p class="t-small anim-3" style="text-align:center; margin-top:14px"
+       data-ar="بياناتك مشفرة ومحمية · لن نشاركها مع أي جهة"
+       data-en="Your data is encrypted · never shared with third parties">
+      بياناتك مشفرة ومحمية · لن نشاركها مع أي جهة
+    </p>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 2: UPLOAD
+     ═══════════════════════════════════════════ -->
+<div class="screen has-nav" id="s-upload">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">Clarity<em>Finance</em></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="CF.toggleTheme()">
+        <span class="theme-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </span>
+      </button>
+      <button class="txt-btn lang-toggle" onclick="CF.toggleLang()">EN</button>
+      <button class="txt-btn" onclick="CF.show('login')"
+              data-ar="خروج" data-en="Exit">خروج</button>
+    
+      <button class="power-btn" onclick="CF.show('login')" title="تسجيل الخروج / Logout">
+        <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="page">
+
+    <!-- Step dots -->
+    <div class="step-dots anim-1">
+      <div class="step-dot done"></div>
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+
+    <!-- Title -->
+    <div class="anim-1" style="margin-bottom:22px">
+      <div class="t-display" data-ar="ارفع بياناتك المالية" data-en="Upload Your Financial Data">ارفع بياناتك المالية</div>
+      <div class="t-body" style="margin-top:6px"
+           data-ar="Excel أو CSV — النظام يقرأها ويحللها تلقائياً"
+           data-en="Excel or CSV — the system reads and analyzes automatically">
+        Excel أو CSV — النظام يقرأها ويحللها تلقائياً
+      </div>
+    </div>
+
+    <!-- Drop zone -->
+    <div class="drop-zone anim-2" id="drop-zone"
+         onclick="document.getElementById('file-input').click()"
+         ondragover="UPLOAD.dragOver(event)"
+         ondragleave="UPLOAD.dragLeave(event)"
+         ondrop="UPLOAD.drop(event)">
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div class="t-h3" style="margin-bottom:5px"
+           data-ar="اسحب الملف هنا أو اضغط للرفع"
+           data-en="Drag file here or tap to upload">
+        اسحب الملف هنا أو اضغط للرفع
+      </div>
+      <div class="t-small"
+           data-ar="الحد الأقصى 10MB"
+           data-en="Maximum 10MB">الحد الأقصى 10MB</div>
+      <div class="file-chips">
+        <span class="file-chip">Excel .xlsx</span>
+        <span class="file-chip">Excel .xls</span>
+        <span class="file-chip">CSV</span>
+      </div>
+    </div>
+    <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display:none"
+           onchange="UPLOAD.fileChosen(this)"/>
+
+    <!-- File preview (hidden until file chosen) -->
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <div style="flex:1; min-width:0">
+        <div style="font-size:13px; font-weight:700; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap" id="file-name">file.xlsx</div>
+        <div class="t-small" id="file-meta">2.4 MB</div>
+      </div>
+      <button onclick="UPLOAD.clearFile()"
+              style="color:var(--muted); font-size:20px; padding:4px; line-height:1; flex-shrink:0">×</button>
+    </div>
+
+    <!-- File type selector -->
+    <div class="card card-sm anim-3" style="margin-bottom:14px">
+      <div class="t-h3" style="margin-bottom:10px"
+           data-ar="نوع الملف" data-en="FILE TYPE">نوع الملف</div>
+      <div style="display:flex; flex-direction:column; gap:8px" id="file-type-opts">
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer">
+          <input type="radio" name="ftype" value="trial" checked style="accent-color:var(--green)"/>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--ink)"
+                 data-ar="ميزان المراجعة" data-en="Trial Balance">ميزان المراجعة</div>
+            <div class="t-small"
+                 data-ar="Account + Amount" data-en="Account + Amount">Account + Amount</div>
+          </div>
+        </label>
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer">
+          <input type="radio" name="ftype" value="income" style="accent-color:var(--green)"/>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--ink)"
+                 data-ar="قائمة الدخل" data-en="Income Statement">قائمة الدخل</div>
+            <div class="t-small"
+                 data-ar="Revenue / Expenses / Profit"
+                 data-en="Revenue / Expenses / Profit">Revenue / Expenses / Profit</div>
+          </div>
+        </label>
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer">
+          <input type="radio" name="ftype" value="export" style="accent-color:var(--green)"/>
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--ink)"
+                 data-ar="تصدير محاسبي" data-en="Accounting Export">تصدير محاسبي</div>
+            <div class="t-small"
+                 data-ar="Odoo / QuickBooks / غيره"
+                 data-en="Odoo / QuickBooks / Other">Odoo / QuickBooks / غيره</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Currency -->
+    <div class="card card-sm anim-4" style="margin-bottom:20px">
+      <div class="t-h3" style="margin-bottom:10px"
+           data-ar="العملة" data-en="CURRENCY">العملة</div>
+      <div style="display:flex; gap:8px">
+        <button class="btn btn-sm btn-primary" id="cur-sar" onclick="UPLOAD.setCur('SAR',this)">SAR ر.س</button>
+        <button class="btn btn-sm btn-ghost"   id="cur-usd" onclick="UPLOAD.setCur('USD',this)">USD $</button>
+        <button class="btn btn-sm btn-ghost"   id="cur-eur" onclick="UPLOAD.setCur('EUR',this)">EUR €</button>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <button class="btn btn-primary btn-full anim-5" onclick="UPLOAD.start()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      <span data-ar="تحليل البيانات" data-en="Analyze Data">تحليل البيانات</span>
+    </button>
+
+    <!-- Template download -->
+    <div style="text-align:center; margin-top:14px">
+      <a href="#" class="t-small" style="color:var(--green); font-weight:700; text-decoration:none"
+         data-ar="تحميل قالب Excel الرسمي ↓"
+         data-en="Download official Excel template ↓">
+        تحميل قالب Excel الرسمي ↓
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-item" data-screen="dashboard" onclick="CF.show('dashboard')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span data-ar="الرئيسية" data-en="Home">الرئيسية</span>
+      <div class="nav-pip"></div>
+    </button>
+    <button class="nav-item active" data-screen="upload" onclick="CF.show('upload')">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span data-ar="رفع" data-en="Upload">رفع</span>
+      <div class="nav-pip"></div>
+    </button>
+    <button class="nav-item" data-screen="reports" onclick="CF.show('reports')">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span data-ar="تقاريري" data-en="Reports">تقاريري</span>
+      <div class="nav-pip"></div>
+    </button>
+  </nav>
+
+</div>
+
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 3: VALIDATION
+     ═══════════════════════════════════════════ -->
+<div class="screen has-nav" id="s-validation">
+
+  <div class="topbar">
+    <div class="brand">Clarity<em>Finance</em></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="CF.toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
+      <button class="txt-btn lang-toggle" onclick="CF.toggleLang()">EN</button>
+    
+      <button class="power-btn" onclick="CF.show('login')" title="تسجيل الخروج / Logout">
+        <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="step-dots anim-1">
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+
+    <!-- Processing animation -->
+    <div id="val-processing" style="text-align:center; padding:40px 0 30px" class="anim-1">
+      <div class="spinner" style="margin: 0 auto 20px"></div>
+      <div class="t-h2" data-ar="جارٍ التحقق من البيانات..." data-en="Validating data...">جارٍ التحقق من البيانات...</div>
+      <div class="t-small" style="margin-top:6px" data-ar="فحص الأعمدة والقيم والتنسيق" data-en="Checking columns, values and format">فحص الأعمدة والقيم والتنسيق</div>
+      <div style="max-width:280px; margin:28px auto 0; display:flex; flex-direction:column; gap:10px; text-align:right" id="val-steps">
+        <div class="val-step" data-ar="قراءة الملف..." data-en="Reading file...">قراءة الملف...</div>
+        <div class="val-step" data-ar="فحص الأعمدة الأساسية..." data-en="Checking required columns...">فحص الأعمدة الأساسية...</div>
+        <div class="val-step" data-ar="كشف القيم الفارغة..." data-en="Detecting empty values...">كشف القيم الفارغة...</div>
+        <div class="val-step" data-ar="التحقق من تنسيق الأرقام..." data-en="Verifying number format...">التحقق من تنسيق الأرقام...</div>
+      </div>
+    </div>
+
+    <!-- Success state (hidden initially) -->
+    <div id="val-success" style="display:none" class="anim-1">
+      <div style="text-align:center; padding:30px 0 20px">
+        <div style="width:64px; height:64px; border-radius:50%; background:var(--green3); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:28px">✓</div>
+        <div class="t-h2" data-ar="البيانات صحيحة ✓" data-en="Data is valid ✓">البيانات صحيحة ✓</div>
+        <div class="t-small" style="margin-top:6px" data-ar="تم فحص 248 سطراً — لا أخطاء" data-en="Checked 248 rows — no errors">تم فحص 248 سطراً — لا أخطاء</div>
+      </div>
+      <div class="card card-sm" style="margin-bottom:12px">
+        <div class="t-h3" style="margin-bottom:10px" data-ar="ملخص الملف" data-en="FILE SUMMARY">ملخص الملف</div>
+        <div style="display:flex; flex-direction:column; gap:8px">
+          <div style="display:flex; justify-content:space-between; font-size:13px">
+            <span style="color:var(--muted)" data-ar="عدد الأسطر" data-en="Rows">عدد الأسطر</span>
+            <span style="font-weight:700; color:var(--ink)">248</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:13px">
+            <span style="color:var(--muted)" data-ar="الأعمدة المكتشفة" data-en="Columns detected">الأعمدة المكتشفة</span>
+            <span style="font-weight:700; color:var(--ink)">Account, Amount, Date</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:13px">
+            <span style="color:var(--muted)" data-ar="الفترة الزمنية" data-en="Period">الفترة الزمنية</span>
+            <span style="font-weight:700; color:var(--ink)">يناير — مارس 2025</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:13px">
+            <span style="color:var(--muted)" data-ar="الأخطاء" data-en="Errors">الأخطاء</span>
+            <span class="badge badge-green" data-ar="لا أخطاء" data-en="None">لا أخطاء</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="CF.show('mapping')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        <span data-ar="المتابعة للتصنيف" data-en="Continue to Mapping">المتابعة للتصنيف</span>
+      </button>
+    </div>
+
+    <!-- Error state (hidden initially) -->
+    <div id="val-error" style="display:none" class="anim-1">
+      <div style="text-align:center; padding:30px 0 20px">
+        <div style="width:64px; height:64px; border-radius:50%; background:var(--red2); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:28px">✗</div>
+        <div class="t-h2" data-ar="يوجد خطأ في البيانات" data-en="Data errors found">يوجد خطأ في البيانات</div>
+        <div class="t-small" style="margin-top:6px" data-ar="صحح الأخطاء وأعد الرفع" data-en="Fix the errors and re-upload">صحح الأخطاء وأعد الرفع</div>
+      </div>
+      <div class="alert alert-red" style="margin-bottom:8px">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <div class="alert-title" data-ar="عمود Amount مفقود في السطر 23" data-en="Column 'Amount' missing in row 23">عمود Amount مفقود في السطر 23</div>
+          <div class="alert-body" data-ar="تأكد من وجود قيمة رقمية في هذا العمود" data-en="Make sure this column has a numeric value">تأكد من وجود قيمة رقمية في هذا العمود</div>
+        </div>
+      </div>
+      <div class="alert alert-amber">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <div class="alert-title" data-ar="5 خلايا فارغة في عمود Account" data-en="5 empty cells in Account column">5 خلايا فارغة في عمود Account</div>
+          <div class="alert-body" data-ar="الأسطر: 45، 67، 89، 102، 134" data-en="Rows: 45, 67, 89, 102, 134">الأسطر: 45، 67، 89، 102، 134</div>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-full" style="margin-top:16px" onclick="CF.show('upload')">
+        <span data-ar="↩ إعادة الرفع" data-en="↩ Re-upload">↩ إعادة الرفع</span>
+      </button>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item" data-screen="dashboard" onclick="CF.show('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span data-ar="الرئيسية" data-en="Home">الرئيسية</span><div class="nav-pip"></div></button>
+    <button class="nav-item active" data-screen="upload" onclick="CF.show('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-ar="رفع" data-en="Upload">رفع</span><div class="nav-pip"></div></button>
+    <button class="nav-item" data-screen="reports" onclick="CF.show('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-ar="تقاريري" data-en="Reports">تقاريري</span><div class="nav-pip"></div></button>
+  </nav>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 4: ACCOUNT MAPPING
+     ═══════════════════════════════════════════ -->
+<div class="screen has-nav" id="s-mapping">
+
+  <div class="topbar">
+    <div class="brand">Clarity<em>Finance</em></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="CF.toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
+      <button class="txt-btn lang-toggle" onclick="CF.toggleLang()">EN</button>
+      <button class="power-btn" onclick="CF.show('login')" title="تسجيل الخروج / Logout">
+        <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="step-dots anim-1">
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+    </div>
+
+    <div class="anim-1" style="margin-bottom:18px">
+      <div class="t-display" data-ar="تصنيف الحسابات" data-en="Account Mapping">تصنيف الحسابات</div>
+      <div class="t-body" style="margin-top:6px" data-ar="راجع التصنيفات التلقائية وأكّد أو عدّل" data-en="Review auto-classifications, confirm or adjust">راجع التصنيفات التلقائية وأكّد أو عدّل</div>
+    </div>
+
+    <!-- Progress summary -->
+    <div class="map-summary-bar anim-2">
+      <div class="map-sum-item map-sum-auto">
+        <div class="map-sum-num" id="map-count-auto">18</div>
+        <div class="map-sum-label" data-ar="تلقائي ✓" data-en="Auto ✓">تلقائي ✓</div>
+      </div>
+      <div class="map-sum-divider"></div>
+      <div class="map-sum-item map-sum-review">
+        <div class="map-sum-num" id="map-count-review">4</div>
+        <div class="map-sum-label" data-ar="يحتاج تأكيد" data-en="Needs confirm">يحتاج تأكيد</div>
+      </div>
+      <div class="map-sum-divider"></div>
+      <div class="map-sum-item map-sum-manual">
+        <div class="map-sum-num" id="map-count-manual">2</div>
+        <div class="map-sum-label" data-ar="يدوي" data-en="Manual">يدوي</div>
+      </div>
+      <div class="map-sum-divider"></div>
+      <div class="map-sum-item" style="flex:2">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px" data-ar="التقدم" data-en="Progress">التقدم</div>
+        <div class="progress" style="height:8px;border-radius:6px">
+          <div class="progress-fill" id="map-progress" style="width:75%"></div>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px" id="map-pct-label">18 / 24</div>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="anim-3" style="margin-bottom:12px">
+      <div class="tabs">
+        <button class="tab active" onclick="MAPPING.filter('all',this)" data-ar="الكل (24)" data-en="All (24)">الكل (24)</button>
+        <button class="tab" onclick="MAPPING.filter('review',this)" style="color:var(--amber)" data-ar="مراجعة (4)" data-en="Review (4)">مراجعة (4)</button>
+        <button class="tab" onclick="MAPPING.filter('manual',this)" style="color:var(--red)" data-ar="يدوي (2)" data-en="Manual (2)">يدوي (2)</button>
+        <button class="tab" onclick="MAPPING.filter('auto',this)" style="color:var(--green)" data-ar="تم (18)" data-en="Done (18)">تم (18)</button>
+      </div>
+    </div>
+
+    <!-- Map items list -->
+    <div class="anim-3" id="map-list">
+
+      <!-- CATEGORY: REVENUES -->
+      <div class="map-cat-header" onclick="MAPPING.toggleCat(this)">
+        <div class="map-cat-icon" style="background:var(--green4);color:var(--green)">📈</div>
+        <div class="map-cat-info">
+          <div class="map-cat-name" data-ar="الإيرادات" data-en="Revenue">الإيرادات</div>
+          <div class="map-cat-sub" data-ar="3 حسابات · كلها مصنّفة" data-en="3 accounts · all mapped">3 حسابات · كلها مصنّفة</div>
+        </div>
+        <span class="badge badge-green" style="font-size:10px" data-ar="مكتمل" data-en="Complete">مكتمل</span>
+        <svg class="map-cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="map-cat-body" style="display:none">
+        <div class="map-item" data-status="auto">
+          <div class="map-item-main">
+            <div class="map-item-name">Sales Revenue</div>
+            <div class="map-item-cat" data-ar="إيرادات المبيعات" data-en="Sales Revenue">إيرادات المبيعات</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">98%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+        <div class="map-item" data-status="auto">
+          <div class="map-item-main">
+            <div class="map-item-name">Service Fees</div>
+            <div class="map-item-cat" data-ar="رسوم الخدمات" data-en="Service Revenue">رسوم الخدمات</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">95%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+        <div class="map-item" data-status="auto" style="border-bottom:none">
+          <div class="map-item-main">
+            <div class="map-item-name">Other Income</div>
+            <div class="map-item-cat" data-ar="إيرادات أخرى" data-en="Other Income">إيرادات أخرى</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">91%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY: OPERATING EXPENSES -->
+      <div class="map-cat-header" onclick="MAPPING.toggleCat(this)" style="margin-top:8px">
+        <div class="map-cat-icon" style="background:var(--amber2);color:var(--amber)">💼</div>
+        <div class="map-cat-info">
+          <div class="map-cat-name" data-ar="المصاريف التشغيلية" data-en="Operating Expenses">المصاريف التشغيلية</div>
+          <div class="map-cat-sub" data-ar="8 حسابات · 6 مصنّفة · 2 تحتاج تأكيد" data-en="8 accounts · 6 mapped · 2 need confirm">8 حسابات · 6 مصنّفة · 2 تحتاج تأكيد</div>
+        </div>
+        <span class="badge badge-amber" style="font-size:10px" data-ar="2 معلّق" data-en="2 pending">2 معلّق</span>
+        <svg class="map-cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="map-cat-body">
+        <div class="map-item" data-status="auto">
+          <div class="map-item-main">
+            <div class="map-item-name">Rent</div>
+            <div class="map-item-cat" data-ar="مصاريف إيجار" data-en="Rent Expense">مصاريف إيجار</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">94%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+        <div class="map-item" data-status="auto">
+          <div class="map-item-main">
+            <div class="map-item-name">Salaries</div>
+            <div class="map-item-cat" data-ar="رواتب وأجور" data-en="Salaries & Wages">رواتب وأجور</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">97%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+        <div class="map-item" data-status="auto">
+          <div class="map-item-main">
+            <div class="map-item-name">Utilities</div>
+            <div class="map-item-cat" data-ar="مصاريف مرافق" data-en="Utilities Expense">مصاريف مرافق</div>
+          </div>
+          <div class="map-item-end">
+            <span class="conf-pill conf-high">89%</span>
+            <span class="map-check">✓</span>
+          </div>
+        </div>
+
+        <!-- REVIEW ITEM -->
+        <div class="map-item map-item-review" data-status="review" id="map-item-marketing">
+          <div class="map-review-header">
+            <div class="map-item-main">
+              <div class="map-item-name">Marketing Expenses</div>
+              <div class="map-item-cat" data-ar="مقترح: مصاريف تسويق" data-en="Suggested: Marketing Expense">مقترح: مصاريف تسويق</div>
+            </div>
+            <span class="conf-pill conf-medium">71%</span>
+          </div>
+          <div class="map-review-actions">
+            <button class="btn btn-sm btn-primary" onclick="MAPPING.confirm(this,'map-item-marketing')" data-ar="تأكيد ✓" data-en="Confirm ✓">تأكيد ✓</button>
+            <select class="map-select">
+              <option data-ar="مصاريف تسويق" data-en="Marketing Expense">مصاريف تسويق</option>
+              <option data-ar="مصاريف إدارية" data-en="Admin Expense">مصاريف إدارية</option>
+              <option data-ar="مصاريف تشغيلية" data-en="Operating Expense">مصاريف تشغيلية</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- REVIEW ITEM 2 -->
+        <div class="map-item map-item-review" data-status="review" id="map-item-consult" style="border-bottom:none">
+          <div class="map-review-header">
+            <div class="map-item-main">
+              <div class="map-item-name">Consulting Fees</div>
+              <div class="map-item-cat" data-ar="مقترح: مصاريف استشارات" data-en="Suggested: Consulting Expense">مقترح: مصاريف استشارات</div>
+            </div>
+            <span class="conf-pill conf-medium">68%</span>
+          </div>
+          <div class="map-review-actions">
+            <button class="btn btn-sm btn-primary" onclick="MAPPING.confirm(this,'map-item-consult')" data-ar="تأكيد ✓" data-en="Confirm ✓">تأكيد ✓</button>
+            <select class="map-select">
+              <option data-ar="مصاريف استشارات" data-en="Consulting Expense">مصاريف استشارات</option>
+              <option data-ar="مصاريف إدارية" data-en="Admin Expense">مصاريف إدارية</option>
+              <option data-ar="تكلفة المبيعات" data-en="Cost of Sales">تكلفة المبيعات</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY: UNCLASSIFIED (manual) -->
+      <div class="map-cat-header" onclick="MAPPING.toggleCat(this)" style="margin-top:8px">
+        <div class="map-cat-icon" style="background:var(--red2);color:var(--red)">❓</div>
+        <div class="map-cat-info">
+          <div class="map-cat-name" data-ar="غير مصنّف" data-en="Unclassified">غير مصنّف</div>
+          <div class="map-cat-sub" data-ar="2 حسابات تحتاج تصنيف يدوي" data-en="2 accounts need manual classification">2 حسابات تحتاج تصنيف يدوي</div>
+        </div>
+        <span class="badge badge-red" style="font-size:10px" data-ar="يدوي" data-en="Manual">يدوي</span>
+        <svg class="map-cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="map-cat-body">
+        <div class="map-item map-item-manual" data-status="manual" id="map-item-x2847">
+          <div class="map-review-header">
+            <div class="map-item-main">
+              <div class="map-item-name">Account X-2847</div>
+              <div class="map-item-cat" style="color:var(--red)" data-ar="غير معروف" data-en="Unknown">غير معروف</div>
+            </div>
+            <span class="conf-pill conf-low">42%</span>
+          </div>
+          <select class="map-select" onchange="MAPPING.manualSelect(this,'map-item-x2847')">
+            <option value="" data-ar="— اختر الفئة —" data-en="— Select category —">— اختر الفئة —</option>
+            <option data-ar="إيرادات" data-en="Revenue">إيرادات</option>
+            <option data-ar="تكلفة المبيعات" data-en="Cost of Sales">تكلفة المبيعات</option>
+            <option data-ar="مصاريف إدارية" data-en="Admin Expense">مصاريف إدارية</option>
+            <option data-ar="مصاريف تشغيلية" data-en="Operating Expense">مصاريف تشغيلية</option>
+            <option data-ar="أصول" data-en="Assets">أصول</option>
+            <option data-ar="التزامات" data-en="Liabilities">التزامات</option>
+          </select>
+        </div>
+        <div class="map-item map-item-manual" data-status="manual" id="map-item-misc" style="border-bottom:none">
+          <div class="map-review-header">
+            <div class="map-item-main">
+              <div class="map-item-name">Misc Charges</div>
+              <div class="map-item-cat" style="color:var(--red)" data-ar="غير معروف" data-en="Unknown">غير معروف</div>
+            </div>
+            <span class="conf-pill conf-low">38%</span>
+          </div>
+          <select class="map-select" onchange="MAPPING.manualSelect(this,'map-item-misc')">
+            <option value="" data-ar="— اختر الفئة —" data-en="— Select category —">— اختر الفئة —</option>
+            <option data-ar="إيرادات" data-en="Revenue">إيرادات</option>
+            <option data-ar="مصاريف متنوعة" data-en="Miscellaneous Expense">مصاريف متنوعة</option>
+            <option data-ar="مصاريف إدارية" data-en="Admin Expense">مصاريف إدارية</option>
+            <option data-ar="مصاريف تشغيلية" data-en="Operating Expense">مصاريف تشغيلية</option>
+          </select>
+        </div>
+      </div>
+
+    </div><!-- /map-list -->
+
+    <!-- Memory note -->
+    <div class="ai-card anim-4" style="margin-top:14px">
+      <div class="ai-icon">🧠</div>
+      <div>
+        <div class="ai-eyebrow" data-ar="ذاكرة التصنيف" data-en="MAPPING MEMORY">ذاكرة التصنيف</div>
+        <div class="ai-text" data-ar="النظام سيتذكر تصنيفاتك — الرفع القادم سيكون أسرع وأدق" data-en="System remembers your classifications — next upload will be faster">النظام سيتذكر تصنيفاتك — الرفع القادم سيكون أسرع وأدق</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-full anim-5" style="margin-top:14px" onclick="CF.show('processing')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      <span data-ar="بدء التحليل" data-en="Start Analysis">بدء التحليل</span>
+    </button>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item" data-screen="dashboard" onclick="CF.show('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span data-ar="الرئيسية" data-en="Home">الرئيسية</span><div class="nav-pip"></div></button>
+    <button class="nav-item active" data-screen="upload" onclick="CF.show('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-ar="رفع" data-en="Upload">رفع</span><div class="nav-pip"></div></button>
+    <button class="nav-item" data-screen="reports" onclick="CF.show('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-ar="تقاريري" data-en="Reports">تقاريري</span><div class="nav-pip"></div></button>
+  </nav>
+
+</div>
+
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN 5: PROCESSING
+     ═══════════════════════════════════════════ -->
+<div class="screen" id="s-processing">
+
+  <div class="topbar">
+    <div class="brand">Clarity<em>Finance</em></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="CF.toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
+      <button class="power-btn" onclick="CF.show('login')" title="تسجيل الخروج / Logout">
+        <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div style="min-height:calc(100dvh - var(--topbar-h)); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px; text-align:center;">
+
+    <!-- Ring spinner -->
+    <div style="position:relative; width:88px; height:88px; margin-bottom:28px;" class="anim-1">
+      <svg viewBox="0 0 88 88" style="width:88px;height:88px;transform:rotate(-90deg)">
+        <circle cx="44" cy="44" r="36" fill="none" stroke="var(--border)" stroke-width="5"/>
+        <circle id="proc-ring" cx="44" cy="44" r="36" fill="none" stroke="var(--green)" stroke-width="5"
+          stroke-linecap="round"
+          stroke-dasharray="226"
+          stroke-dashoffset="226"
+          style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div id="proc-pct" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;color:var(--ink)">0%</div>
+    </div>
+
+    <div class="t-h2 anim-2" data-ar="جارٍ التحليل..." data-en="Analyzing...">جارٍ التحليل...</div>
+    <div class="t-small anim-2" style="margin-top:6px; max-width:220px" data-ar="النظام يحسب المؤشرات ويولد الرؤى" data-en="Calculating metrics and generating insights">النظام يحسب المؤشرات ويولد الرؤى</div>
