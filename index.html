@@ -2,693 +2,92 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>كلاريتي فايننس – وضوح مالي فوري</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="description" content="ClarityFinance – منصة مالية ذكية للشركات الصغيرة والمتوسطة">
+  <meta name="theme-color" content="#2A6048">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <title>كلاريتي فايننس – وضوح مالي فوري</title>
 </head>
 <body>
-
-  <!-- ==================== شاشة 1: تسجيل الدخول ==================== -->
-  <div class="screen active" id="s-login">
-    <div class="topbar">
-      <div class="brand">Clarity<em>Finance</em></div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()" title="Dark Mode" id="themeToggle">
-          <span class="theme-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </span>
-        </button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="hero anim-1">
-        <div class="login-mark">
-          <svg viewBox="0 0 34 34" fill="none" stroke="white" stroke-width="2.5"><polyline points="4,22 12,13 19,18 30,7"/><polyline points="23,7 30,7 30,14"/></svg>
+  <div class="app-container">
+    <!-- شاشة تسجيل الدخول -->
+    <section class="screen screen--active" id="login-screen" data-screen="login">
+      <header class="app-bar">
+        <div class="brand">
+          <h1 class="brand__logo">Clarity<em>Finance</em></h1>
         </div>
-        <div class="t-display" data-ar="وضوح مالي حقيقي" data-en="Real Financial Clarity">وضوح مالي حقيقي</div>
-        <div class="t-small" style="margin-top:8px" data-ar="من بيانات خام إلى قرارات واضحة · أقل من 5 دقائق" data-en="From raw numbers to clear decisions · under 5 minutes">من بيانات خام إلى قرارات واضحة · أقل من 5 دقائق</div>
-      </div>
+        <div class="app-bar__actions">
+          <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+              <use href="#icon-moon"></use>
+            </svg>
+          </button>
+          <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        </div>
+      </header>
 
-      <div class="card anim-2">
-        <div class="t-h2" style="margin-bottom:18px" data-ar="تسجيل الدخول" data-en="Sign In">تسجيل الدخول</div>
-
-        <div class="field">
-          <label data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label>
-          <input type="email" placeholder="name@company.sa" id="login-email" autocomplete="email">
+      <main class="page page--centered">
+        <div class="hero-section">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <polyline points="6,24 14,15 21,20 32,9" stroke="white" stroke-width="3" fill="none"/>
+              <polyline points="25,9 32,9 32,16" stroke="white" stroke-width="3" fill="none"/>
+            </svg>
+          </div>
+          <h2 class="display-large" data-i18n="hero.title">وضوح مالي حقيقي</h2>
+          <p class="body-small" data-i18n="hero.subtitle">من بيانات خام إلى قرارات واضحة · أقل من 5 دقائق</p>
         </div>
 
-        <div class="field" style="margin-bottom:18px">
-          <label data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
-          <input type="password" placeholder="••••••••" id="login-password" autocomplete="current-password">
-        </div>
+        <article class="card">
+          <h3 class="title-medium" data-i18n="login.title">تسجيل الدخول</h3>
+          
+          <div class="field">
+            <label for="login-email" data-i18n="login.email">البريد الإلكتروني</label>
+            <input type="email" id="login-email" placeholder="name@company.sa" autocomplete="email">
+          </div>
 
-        <button class="btn btn-primary btn-full" onclick="showScreen('upload')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          <span data-ar="دخول" data-en="Sign In">دخول</span>
-        </button>
+          <div class="field">
+            <label for="login-password" data-i18n="login.password">كلمة المرور</label>
+            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+          </div>
 
-        <div class="divider-or">
-          <span data-ar="أو" data-en="or">أو</span>
-        </div>
+          <button class="btn btn--primary btn--full" id="login-btn" data-i18n="login.signin">دخول</button>
 
-        <button class="btn btn-ghost btn-full" onclick="showScreen('upload')" style="margin-bottom:8px">
-          <span data-ar="تجربة بدون حساب" data-en="Try without account">تجربة بدون حساب</span>
-        </button>
-      </div>
+          <div class="divider" data-i18n="login.or">أو</div>
 
-      <p class="t-small anim-3" style="text-align:center; margin-top:14px" data-ar="بياناتك مشفرة ومحمية · لن نشاركها مع أي جهة" data-en="Your data is encrypted · never shared with third parties">بياناتك مشفرة ومحمية · لن نشاركها مع أي جهة</p>
-    </div>
+          <button class="btn btn--ghost btn--full" id="try-btn" data-i18n="login.try">تجربة بدون حساب</button>
+        </article>
+
+        <p class="footnote" data-i18n="login.security">بياناتك مشفرة ومحمية · لن نشاركها مع أي جهة</p>
+      </main>
+    </section>
+
+    <!-- باقي الشاشات ستضاف بنفس النمط -->
+    <!-- upload, validation, mapping, processing, dashboard, insights, duediligence, reports -->
+
+    <!-- Icons Sprite (مخفي) -->
+    <svg style="display:none">
+      <defs>
+        <symbol id="icon-moon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </symbol>
+      </defs>
+    </svg>
   </div>
-
-  <!-- ==================== شاشة 2: رفع الملف ==================== -->
-  <div class="screen has-nav" id="s-upload">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('dashboard')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="txt-btn" onclick="showScreen('login')" data-ar="خروج" data-en="Exit">خروج</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="step-dots anim-1">
-        <div class="step-dot done"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-      </div>
-
-      <div class="anim-1" style="margin-bottom:22px">
-        <div class="t-display" data-ar="ارفع بياناتك المالية" data-en="Upload Your Financial Data">ارفع بياناتك المالية</div>
-        <div class="t-body" style="margin-top:6px" data-ar="Excel أو CSV — النظام يقرأها ويحللها تلقائياً" data-en="Excel or CSV — the system reads and analyzes automatically">Excel أو CSV — النظام يقرأها ويحللها تلقائياً</div>
-      </div>
-
-      <div class="drop-zone anim-2" id="drop-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave()" ondrop="dropFile(event)">
-        <div class="drop-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-        <div class="t-h3" style="margin-bottom:5px" data-ar="اسحب الملف هنا أو اضغط للرفع" data-en="Drag file here or tap to upload">اسحب الملف هنا أو اضغط للرفع</div>
-        <div class="t-small" data-ar="الحد الأقصى 10MB" data-en="Maximum 10MB">الحد الأقصى 10MB</div>
-        <div class="file-chips"><span class="file-chip">Excel .xlsx</span><span class="file-chip">Excel .xls</span><span class="file-chip">CSV</span></div>
-      </div>
-      <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="fileChosen(this)">
-
-      <div class="file-preview" id="file-preview">
-        <div class="file-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-        <div style="flex:1; min-width:0"><div style="font-size:13px; font-weight:700; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap" id="file-name">file.xlsx</div><div class="t-small" id="file-meta">2.4 MB</div></div>
-        <button onclick="clearFile()" class="clear-file-btn">×</button>
-      </div>
-
-      <div class="card card-sm anim-3" style="margin-bottom:14px">
-        <div class="t-h3" style="margin-bottom:10px" data-ar="نوع الملف" data-en="FILE TYPE">نوع الملف</div>
-        <div style="display:flex; flex-direction:column; gap:8px">
-          <label class="radio-label"><input type="radio" name="ftype" value="trial" checked> <div><div data-ar="ميزان المراجعة" data-en="Trial Balance">ميزان المراجعة</div><div class="t-small" data-ar="Account + Amount" data-en="Account + Amount">Account + Amount</div></div></label>
-          <label class="radio-label"><input type="radio" name="ftype" value="income"> <div><div data-ar="قائمة الدخل" data-en="Income Statement">قائمة الدخل</div><div class="t-small" data-ar="Revenue / Expenses / Profit" data-en="Revenue / Expenses / Profit">Revenue / Expenses / Profit</div></div></label>
-          <label class="radio-label"><input type="radio" name="ftype" value="export"> <div><div data-ar="تصدير محاسبي" data-en="Accounting Export">تصدير محاسبي</div><div class="t-small" data-ar="Odoo / QuickBooks / غيره" data-en="Odoo / QuickBooks / Other">Odoo / QuickBooks / غيره</div></div></label>
-        </div>
-      </div>
-
-      <div class="card card-sm anim-4" style="margin-bottom:20px">
-        <div class="t-h3" style="margin-bottom:10px" data-ar="العملة" data-en="CURRENCY">العملة</div>
-        <div class="currency-btns">
-          <button class="btn btn-sm btn-primary" id="cur-sar" onclick="setCurrency('SAR',this)">SAR ر.س</button>
-          <button class="btn btn-sm btn-ghost" id="cur-usd" onclick="setCurrency('USD',this)">USD $</button>
-          <button class="btn btn-sm btn-ghost" id="cur-eur" onclick="setCurrency('EUR',this)">EUR €</button>
-        </div>
-      </div>
-
-      <button class="btn btn-primary btn-full anim-5" onclick="startAnalysis()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        <span data-ar="تحليل البيانات" data-en="Analyze Data">تحليل البيانات</span>
-      </button>
-
-      <div style="text-align:center; margin-top:14px">
-        <a href="#" id="downloadTemplate" class="t-small template-link" data-ar="تحميل قالب Excel الرسمي ↓" data-en="Download official Excel template ↓" onclick="downloadTemplate(event)">تحميل قالب Excel الرسمي ↓</a>
-      </div>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span data-ar="الرئيسية" data-en="Home">الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item active" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span data-ar="رفع" data-en="Upload">رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-ar="تقاريري" data-en="Reports">تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 3: التحقق (Validation) ==================== -->
-  <div class="screen has-nav" id="s-validation">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('upload')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="step-dots anim-1">
-        <div class="step-dot done"></div>
-        <div class="step-dot done"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-      </div>
-
-      <div id="val-processing" style="text-align:center; padding:40px 0 30px" class="anim-1">
-        <div class="spinner" style="margin: 0 auto 20px"></div>
-        <div class="t-h2" data-ar="جارٍ التحقق من البيانات..." data-en="Validating data...">جارٍ التحقق من البيانات...</div>
-        <div class="t-small" style="margin-top:6px" data-ar="فحص الأعمدة والقيم والتنسيق" data-en="Checking columns, values and format">فحص الأعمدة والقيم والتنسيق</div>
-        <div style="max-width:280px; margin:28px auto 0; display:flex; flex-direction:column; gap:10px; text-align:right" id="val-steps">
-          <div class="val-step" data-ar="قراءة الملف..." data-en="Reading file...">قراءة الملف...</div>
-          <div class="val-step" data-ar="فحص الأعمدة الأساسية..." data-en="Checking required columns...">فحص الأعمدة الأساسية...</div>
-          <div class="val-step" data-ar="كشف القيم الفارغة..." data-en="Detecting empty values...">كشف القيم الفارغة...</div>
-          <div class="val-step" data-ar="التحقق من تنسيق الأرقام..." data-en="Verifying number format...">التحقق من تنسيق الأرقام...</div>
-        </div>
-      </div>
-
-      <div id="val-success" style="display:none" class="anim-1">
-        <div style="text-align:center; padding:30px 0 20px">
-          <div style="width:64px; height:64px; border-radius:50%; background:var(--green-3); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:28px">✓</div>
-          <div class="t-h2" data-ar="البيانات صحيحة ✓" data-en="Data is valid ✓">البيانات صحيحة ✓</div>
-          <div class="t-small" style="margin-top:6px" data-ar="تم فحص 248 سطراً — لا أخطاء" data-en="Checked 248 rows — no errors">تم فحص 248 سطراً — لا أخطاء</div>
-        </div>
-        <div class="card card-sm" style="margin-bottom:12px">
-          <div class="t-h3" style="margin-bottom:10px" data-ar="ملخص الملف" data-en="FILE SUMMARY">ملخص الملف</div>
-          <div style="display:flex; flex-direction:column; gap:8px">
-            <div style="display:flex; justify-content:space-between; font-size:13px"><span style="color:var(--muted)" data-ar="عدد الأسطر" data-en="Rows">عدد الأسطر</span><span style="font-weight:700; color:var(--ink)">248</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:13px"><span style="color:var(--muted)" data-ar="الأعمدة المكتشفة" data-en="Columns detected">الأعمدة المكتشفة</span><span style="font-weight:700; color:var(--ink)">Account, Amount, Date</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:13px"><span style="color:var(--muted)" data-ar="الفترة الزمنية" data-en="Period">الفترة الزمنية</span><span style="font-weight:700; color:var(--ink)">يناير — مارس 2025</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:13px"><span style="color:var(--muted)" data-ar="الأخطاء" data-en="Errors">الأخطاء</span><span class="badge badge-green" data-ar="لا أخطاء" data-en="None">لا أخطاء</span></div>
-          </div>
-        </div>
-        <button class="btn btn-primary btn-full" onclick="showScreen('mapping')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          <span data-ar="المتابعة للتصنيف" data-en="Continue to Mapping">المتابعة للتصنيف</span>
-        </button>
-      </div>
-
-      <div id="val-error" style="display:none" class="anim-1">
-        <div style="text-align:center; padding:30px 0 20px">
-          <div style="width:64px; height:64px; border-radius:50%; background:var(--red-2); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:28px">✗</div>
-          <div class="t-h2" data-ar="يوجد خطأ في البيانات" data-en="Data errors found">يوجد خطأ في البيانات</div>
-          <div class="t-small" style="margin-top:6px" data-ar="صحح الأخطاء وأعد الرفع" data-en="Fix the errors and re-upload">صحح الأخطاء وأعد الرفع</div>
-        </div>
-        <div class="alert alert-red" style="margin-bottom:8px">
-          <span class="alert-icon">⚠️</span>
-          <div><div class="alert-title" data-ar="عمود Amount مفقود في السطر 23" data-en="Column 'Amount' missing in row 23">عمود Amount مفقود في السطر 23</div><div class="alert-body" data-ar="تأكد من وجود قيمة رقمية في هذا العمود" data-en="Make sure this column has a numeric value">تأكد من وجود قيمة رقمية في هذا العمود</div></div>
-        </div>
-        <div class="alert alert-amber">
-          <span class="alert-icon">⚠️</span>
-          <div><div class="alert-title" data-ar="5 خلايا فارغة في عمود Account" data-en="5 empty cells in Account column">5 خلايا فارغة في عمود Account</div><div class="alert-body" data-ar="الأسطر: 45، 67، 89، 102، 134" data-en="Rows: 45, 67, 89, 102, 134">الأسطر: 45، 67، 89، 102، 134</div></div>
-        </div>
-        <button class="btn btn-outline btn-full" style="margin-top:16px" onclick="showScreen('upload')"><span data-ar="↩ إعادة الرفع" data-en="↩ Re-upload">↩ إعادة الرفع</span></button>
-      </div>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 4: المعالجة (Processing) ==================== -->
-  <div class="screen" id="s-processing">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('mapping')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div style="min-height:calc(100dvh - var(--topbar-h)); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px; text-align:center;">
-      <div style="position:relative; width:88px; height:88px; margin-bottom:28px;" class="anim-1">
-        <svg viewBox="0 0 88 88" style="width:88px;height:88px;transform:rotate(-90deg)">
-          <circle cx="44" cy="44" r="36" fill="none" stroke="var(--border)" stroke-width="5"/>
-          <circle id="proc-ring" cx="44" cy="44" r="36" fill="none" stroke="var(--green)" stroke-width="5" stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="226" style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>
-        </svg>
-        <div id="proc-pct" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;color:var(--ink)">0%</div>
-      </div>
-
-      <div class="t-h2 anim-2" data-ar="جارٍ التحليل..." data-en="Analyzing...">جارٍ التحليل...</div>
-      <div class="t-small anim-2" style="margin-top:6px; max-width:220px" data-ar="النظام يحسب المؤشرات ويولد الرؤى" data-en="Calculating metrics and generating insights">النظام يحسب المؤشرات ويولد الرؤى</div>
-
-      <div style="width:100%; max-width:300px; margin-top:32px;" class="anim-3" id="proc-list">
-        <div class="proc-step" style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border);">
-          <div class="proc-dot" style="width:24px;height:24px;border-radius:50%;border:2px solid var(--border-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .3s">1</div>
-          <span style="font-size:13px;color:var(--muted);transition:color .3s" data-ar="حساب الإيرادات والمصاريف" data-en="Calculating revenue and expenses">حساب الإيرادات والمصاريف</span>
-        </div>
-        <div class="proc-step" style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border);">
-          <div class="proc-dot" style="width:24px;height:24px;border-radius:50%;border:2px solid var(--border-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .3s">2</div>
-          <span style="font-size:13px;color:var(--muted);transition:color .3s" data-ar="حساب السيولة والـ Runway" data-en="Calculating cash and runway">حساب السيولة والـ Runway</span>
-        </div>
-        <div class="proc-step" style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border);">
-          <div class="proc-dot" style="width:24px;height:24px;border-radius:50%;border:2px solid var(--border-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .3s">3</div>
-          <span style="font-size:13px;color:var(--muted);transition:color .3s" data-ar="حساب درجة الصحة المالية" data-en="Computing health score">حساب درجة الصحة المالية</span>
-        </div>
-        <div class="proc-step" style="display:flex; align-items:center; gap:12px; padding:10px 0;">
-          <div class="proc-dot" style="width:24px;height:24px;border-radius:50%;border:2px solid var(--border-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .3s">4</div>
-          <span style="font-size:13px;color:var(--muted);transition:color .3s" data-ar="تحليل التنبيهات والمخاطر" data-en="Analyzing alerts and risks">تحليل التنبيهات والمخاطر</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== باقي الشاشات (Mapping, Dashboard, Insights, DueDiligence, Reports) ==================== -->
-   <!-- ==================== شاشة 5: تصنيف الحسابات (Mapping) ==================== -->
-  <div class="screen has-nav" id="s-mapping">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('validation')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="step-dots anim-1">
-        <div class="step-dot done"></div>
-        <div class="step-dot done"></div>
-        <div class="step-dot done"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-      </div>
-
-      <div class="anim-1" style="margin-bottom:18px">
-        <div class="t-display" data-ar="تصنيف الحسابات" data-en="Account Mapping">تصنيف الحسابات</div>
-        <div class="t-body" style="margin-top:6px" data-ar="راجع التصنيفات التلقائية وأكّد أو عدّل" data-en="Review auto-classifications, confirm or adjust">راجع التصنيفات التلقائية وأكّد أو عدّل</div>
-      </div>
-
-      <div class="map-summary-bar anim-2">
-        <div class="map-sum-item map-sum-auto">
-          <div class="map-sum-num" id="map-count-auto">18</div>
-          <div class="map-sum-label" data-ar="تلقائي ✓" data-en="Auto ✓">تلقائي ✓</div>
-        </div>
-        <div class="map-sum-divider"></div>
-        <div class="map-sum-item map-sum-review">
-          <div class="map-sum-num" id="map-count-review">4</div>
-          <div class="map-sum-label" data-ar="يحتاج تأكيد" data-en="Needs confirm">يحتاج تأكيد</div>
-        </div>
-        <div class="map-sum-divider"></div>
-        <div class="map-sum-item map-sum-manual">
-          <div class="map-sum-num" id="map-count-manual">2</div>
-          <div class="map-sum-label" data-ar="يدوي" data-en="Manual">يدوي</div>
-        </div>
-        <div class="map-sum-divider"></div>
-        <div class="map-sum-item" style="flex:2">
-          <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px" data-ar="التقدم" data-en="Progress">التقدم</div>
-          <div class="progress" style="height:8px;border-radius:6px">
-            <div class="progress-fill" id="map-progress" style="width:75%"></div>
-          </div>
-          <div style="font-size:10px;color:var(--muted);margin-top:3px" id="map-pct-label">18 / 24</div>
-        </div>
-      </div>
-
-      <div class="anim-3" style="margin-bottom:12px">
-        <div class="tabs">
-          <button class="tab active" onclick="filterMapping('all',this)" data-ar="الكل (24)" data-en="All (24)">الكل (24)</button>
-          <button class="tab" onclick="filterMapping('review',this)" style="color:var(--amber)" data-ar="مراجعة (4)" data-en="Review (4)">مراجعة (4)</button>
-          <button class="tab" onclick="filterMapping('manual',this)" style="color:var(--red)" data-ar="يدوي (2)" data-en="Manual (2)">يدوي (2)</button>
-          <button class="tab" onclick="filterMapping('auto',this)" style="color:var(--green)" data-ar="تم (18)" data-en="Done (18)">تم (18)</button>
-        </div>
-      </div>
-
-      <div class="anim-3" id="map-list">
-        <!-- إيرادات -->
-        <div class="map-cat-header" onclick="toggleCategory(this)">
-          <div class="map-cat-icon" style="background:var(--green-4);color:var(--green)">📈</div>
-          <div class="map-cat-info">
-            <div class="map-cat-name" data-ar="الإيرادات" data-en="Revenue">الإيرادات</div>
-            <div class="map-cat-sub" data-ar="3 حسابات · كلها مصنّفة" data-en="3 accounts · all mapped">3 حسابات · كلها مصنّفة</div>
-          </div>
-          <span class="badge badge-green" style="font-size:10px" data-ar="مكتمل" data-en="Complete">مكتمل</span>
-          <svg class="map-cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="map-cat-body">
-          <div class="map-item" data-status="auto">
-            <div class="map-item-main">
-              <div class="map-item-name">Sales Revenue</div>
-              <div class="map-item-cat" data-ar="إيرادات المبيعات" data-en="Sales Revenue">إيرادات المبيعات</div>
-            </div>
-            <div class="map-item-end">
-              <span class="conf-pill conf-high">98%</span>
-              <span class="map-check">✓</span>
-            </div>
-          </div>
-          <div class="map-item" data-status="auto">
-            <div class="map-item-main">
-              <div class="map-item-name">Service Fees</div>
-              <div class="map-item-cat" data-ar="رسوم الخدمات" data-en="Service Revenue">رسوم الخدمات</div>
-            </div>
-            <div class="map-item-end">
-              <span class="conf-pill conf-high">95%</span>
-              <span class="map-check">✓</span>
-            </div>
-          </div>
-          <div class="map-item" data-status="auto" style="border-bottom:none">
-            <div class="map-item-main">
-              <div class="map-item-name">Other Income</div>
-              <div class="map-item-cat" data-ar="إيرادات أخرى" data-en="Other Income">إيرادات أخرى</div>
-            </div>
-            <div class="map-item-end">
-              <span class="conf-pill conf-high">91%</span>
-              <span class="map-check">✓</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ai-card anim-4" style="margin-top:14px">
-        <div class="ai-icon">🧠</div>
-        <div>
-          <div class="ai-eyebrow" data-ar="ذاكرة التصنيف" data-en="MAPPING MEMORY">ذاكرة التصنيف</div>
-          <div class="ai-text" data-ar="النظام سيتذكر تصنيفاتك — الرفع القادم سيكون أسرع وأدق" data-en="System remembers your classifications — next upload will be faster">النظام سيتذكر تصنيفاتك — الرفع القادم سيكون أسرع وأدق</div>
-        </div>
-      </div>
-
-      <button class="btn btn-primary btn-full anim-5" style="margin-top:14px" onclick="showScreen('processing')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        <span data-ar="بدء التحليل" data-en="Start Analysis">بدء التحليل</span>
-      </button>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item active" data-screen="mapping" onclick="showScreen('mapping')"><svg viewBox="0 0 24 24"><path d="M20 20L15 15M4 4L9 9M4 20L20 4"/></svg><span>تصنيف</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 6: لوحة التحكم (Dashboard) ==================== -->
-  <div class="screen has-nav" id="s-dashboard">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('processing')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="txt-btn btn-primary" style="background:var(--green); color:white; border:none" onclick="showScreen('upload')" data-ar="رفع جديد" data-en="New Upload">رفع جديد</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page page-wide">
-      <div class="health-card anim-1">
-        <div style="display:flex; align-items:flex-start; justify-content:space-between; position:relative; z-index:1">
-          <div>
-            <div class="health-eyebrow" data-ar="درجة الصحة المالية" data-en="FINANCIAL HEALTH SCORE">درجة الصحة المالية</div>
-            <div class="health-score">76</div>
-            <div class="health-status" data-ar="جيد · تحسّن 4 نقاط هذا الشهر" data-en="Good · Improved 4pts this month">جيد · تحسّن 4 نقاط هذا الشهر</div>
-          </div>
-          <div style="text-align:center; opacity:.55; font-size:11px; font-weight:600">
-            <div>Q1 2025</div>
-            <div style="font-size:28px; margin-top:2px">📊</div>
-          </div>
-        </div>
-        <div class="health-pills" style="position:relative; z-index:1">
-          <span class="health-pill ok" data-ar="الربحية ✓" data-en="Profitability ✓">الربحية ✓</span>
-          <span class="health-pill ok" data-ar="السيولة ✓" data-en="Liquidity ✓">السيولة ✓</span>
-          <span class="health-pill warn" data-ar="المصاريف ⚠" data-en="Expenses ⚠">المصاريف ⚠</span>
-          <span class="health-pill ok" data-ar="النمو ✓" data-en="Growth ✓">النمو ✓</span>
-        </div>
-      </div>
-
-      <div class="kpi-grid anim-2" style="margin-bottom:12px">
-        <div class="kpi kpi-green">
-          <div class="kpi-label" data-ar="الإيرادات" data-en="REVENUE">الإيرادات</div>
-          <div class="kpi-value">42.8M</div>
-          <div class="kpi-sub" data-ar="ريال سعودي" data-en="SAR">ريال سعودي</div>
-          <div class="kpi-delta up">↑ 12.5%</div>
-        </div>
-        <div class="kpi kpi-red">
-          <div class="kpi-label" data-ar="المصاريف" data-en="EXPENSES">المصاريف</div>
-          <div class="kpi-value">34.5M</div>
-          <div class="kpi-sub" data-ar="ريال سعودي" data-en="SAR">ريال سعودي</div>
-          <div class="kpi-delta down">↑ 3.8%</div>
-        </div>
-        <div class="kpi kpi-blue">
-          <div class="kpi-label" data-ar="صافي الربح" data-en="NET PROFIT">صافي الربح</div>
-          <div class="kpi-value">8.3M</div>
-          <div class="kpi-sub" data-ar="هامش 19.4%" data-en="Margin 19.4%">هامش 19.4%</div>
-          <div class="kpi-delta up">↑ 8.2%</div>
-        </div>
-        <div class="kpi kpi-amber">
-          <div class="kpi-label" data-ar="الـ Runway" data-en="RUNWAY">الـ Runway</div>
-          <div class="kpi-value">7.2</div>
-          <div class="kpi-sub" data-ar="شهر" data-en="months">شهر</div>
-          <div class="kpi-delta up" data-ar="آمن ✓" data-en="Safe ✓">آمن ✓</div>
-        </div>
-      </div>
-
-      <div class="anim-3" style="margin-bottom:12px">
-        <div class="section-head" style="margin-bottom:8px">
-          <div class="t-h3" data-ar="التنبيهات" data-en="ALERTS">التنبيهات</div>
-        </div>
-        <div class="alert alert-amber">
-          <span class="alert-icon">⚠️</span>
-          <div>
-            <div class="alert-title" data-ar="ارتفاع غير عادي في المصاريف" data-en="Unusual expense increase">ارتفاع غير عادي في المصاريف</div>
-            <div class="alert-body" data-ar="المصاريف الإدارية ارتفعت 31% — تجاوزت الحد المعتاد" data-en="Admin expenses up 31% — exceeds normal threshold">المصاريف الإدارية ارتفعت 31% — تجاوزت الحد المعتاد</div>
-          </div>
-        </div>
-        <div class="alert alert-green">
-          <span class="alert-icon">📈</span>
-          <div>
-            <div class="alert-title" data-ar="نمو قوي في الإيرادات" data-en="Strong revenue growth">نمو قوي في الإيرادات</div>
-            <div class="alert-body" data-ar="الإيرادات نمت 12.5% — أعلى من المتوسط الشهري" data-en="Revenue grew 12.5% — above monthly average">الإيرادات نمت 12.5% — أعلى من المتوسط الشهري</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ai-card anim-4">
-        <div class="ai-icon">✨</div>
-        <div>
-          <div class="ai-eyebrow" data-ar="رؤية مالية" data-en="FINANCIAL INSIGHT">رؤية مالية</div>
-          <div class="ai-text" data-ar="المصاريف الإدارية ارتفعت 31% هذا الربع بسبب عقد إيجار جديد. الإيرادات في نمو قوي. تقليص المصاريف الثابتة سيرفع هامش الربح 3-4 نقاط." data-en="Admin expenses rose 31% this quarter due to a new lease. Revenue is growing strongly. Reducing fixed costs would improve profit margin by 3-4 points.">المصاريف الإدارية ارتفعت 31% هذا الربع بسبب عقد إيجار جديد. الإيرادات في نمو قوي. تقليص المصاريف الثابتة سيرفع هامش الربح 3-4 نقاط.</div>
-          <button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="showScreen('insights')" data-ar="عرض التوصيات ←" data-en="View recommendations →">عرض التوصيات ←</button>
-        </div>
-      </div>
-
-      <div style="background:linear-gradient(140deg,#0A1630,#1A2850);border-radius:var(--r-l);padding:18px 20px;margin-top:4px;display:flex;align-items:center;gap:14px;cursor:pointer" onclick="showScreen('duediligence')">
-        <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🔍</div>
-        <div style="flex:1">
-          <div style="font-size:13.5px;font-weight:700;color:#fff;margin-bottom:3px" data-ar="وضع العناية الواجبة ✦" data-en="Due Diligence Mode ✦">وضع العناية الواجبة ✦</div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,.5)" data-ar="تقييم استثماري شامل مع تحليل المخاطر" data-en="Full investment assessment with risk analysis">تقييم استثماري شامل مع تحليل المخاطر</div>
-        </div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item active" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="insights" onclick="showScreen('insights')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>رؤى</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="duediligence" onclick="showScreen('duediligence')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>تقييم</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 7: الرؤى (Insights) ==================== -->
-  <div class="screen has-nav" id="s-insights">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('dashboard')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="anim-1" style="margin-bottom:16px">
-        <div class="t-display" data-ar="الرؤى والتنبيهات" data-en="Insights & Alerts">الرؤى والتنبيهات</div>
-        <div class="t-small" style="margin-top:5px" data-ar="الربع الأول 2025 · محدّث قبل ساعة" data-en="Q1 2025 · Updated 1h ago">الربع الأول 2025 · محدّث قبل ساعة</div>
-      </div>
-
-      <div class="anim-2">
-        <div class="t-h3" style="margin-bottom:8px" data-ar="التنبيهات النشطة" data-en="ACTIVE ALERTS">التنبيهات النشطة</div>
-        <div class="alert alert-red" style="margin-bottom:8px">
-          <span class="alert-icon">🔴</span>
-          <div style="flex:1">
-            <div class="alert-title" data-ar="سيولة منخفضة — تحتاج اجراء" data-en="Low Cash — Action Required">سيولة منخفضة — تحتاج اجراء</div>
-            <div class="alert-body" data-ar="مدة الاستمرارية 4.2 شهر فقط. الهدف المُوصى به 6 أشهر. راجع المصاريف الثابتة الآن." data-en="Cash runway is only 4.2 months. Recommended target is 6 months. Review fixed expenses now.">مدة الاستمرارية 4.2 شهر فقط. الهدف المُوصى به 6 أشهر. راجع المصاريف الثابتة الآن.</div>
-          </div>
-          <span class="badge badge-red" style="flex-shrink:0;align-self:flex-start;font-size:10px" data-ar="حرج" data-en="Critical">حرج</span>
-        </div>
-      </div>
-
-      <div class="card anim-3" style="margin-top:4px;padding:0;overflow:hidden">
-        <div style="padding:16px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-          <div class="t-h3" data-ar="قائمة الدخل" data-en="INCOME STATEMENT">قائمة الدخل</div>
-          <span class="badge badge-muted" data-ar="Q1 2025" data-en="Q1 2025">Q1 2025</span>
-        </div>
-        <table class="tbl">
-          <tr><td style="font-weight:700;color:var(--ink)">إجمالي الإيرادات</td><td style="text-align:left;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--green)">42,800,000</td></tr>
-          <tr><td style="color:var(--ink-2);padding-right:28px">تكلفة المبيعات</td><td style="text-align:left;color:var(--red);font-family:'DM Sans',sans-serif">(26,322,000)</td></tr>
-          <tr style="background:var(--green-5)"><td style="font-weight:700;color:var(--ink)">مجمل الربح</td><td style="text-align:left;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--green)">16,478,000</td></tr>
-          <tr><td style="color:var(--ink-2);padding-right:28px">المصاريف الإدارية</td><td style="text-align:left;color:var(--red);font-family:'DM Sans',sans-serif">(8,210,000)</td></tr>
-          <tr><td style="color:var(--ink-2);padding-right:28px">مصاريف التسويق</td><td style="text-align:left;color:var(--red);font-family:'DM Sans',sans-serif">(3,940,000)</td></tr>
-          <tr style="background:var(--green-5)"><td style="font-weight:700;color:var(--ink)">صافي الربح</td><td style="text-align:left;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--green)">4,328,000</td></tr>
-          <tr><td style="color:var(--muted);font-size:12px">هامش الربح الصافي</td><td style="text-align:left;font-family:'DM Sans',sans-serif;color:var(--green);font-size:12px;font-weight:700">10.1%</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item active" data-screen="insights" onclick="showScreen('insights')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>رؤى</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="duediligence" onclick="showScreen('duediligence')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>تقييم</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 8: العناية الواجبة (Due Diligence) ==================== -->
-  <div class="screen has-nav" id="s-duediligence">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('dashboard')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="anim-1" style="margin-bottom:20px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div style="width:40px;height:40px;border-radius:12px;background:var(--blue-2);display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid #BFDBFE">🔍</div>
-          <div>
-            <div class="t-display" style="font-size:22px" data-ar="تقرير العناية الواجبة" data-en="Due Diligence Report">تقرير العناية الواجبة</div>
-            <div class="t-small" data-ar="شركة الرياض للتجارة · يناير–مارس 2025" data-en="Riyadh Trading Co. · Jan–Mar 2025">شركة الرياض للتجارة · يناير–مارس 2025</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dd-verdict anim-1">
-        <div class="dd-verdict-left">
-          <div class="dd-verdict-label" data-ar="تقييم المخاطر الإجمالي" data-en="OVERALL RISK RATING">تقييم المخاطر الإجمالي</div>
-          <div class="dd-verdict-level dd-medium" data-ar="متوسط المخاطرة" data-en="Medium Risk">متوسط المخاطرة</div>
-          <div class="dd-verdict-sub" data-ar="3 تحذيرات · 1 خطر حرج" data-en="3 warnings · 1 critical flag">3 تحذيرات · 1 خطر حرج</div>
-        </div>
-        <div class="dd-gauge">
-          <svg viewBox="0 0 80 50" width="80">
-            <path d="M10 45 A35 35 0 0 1 70 45" fill="none" stroke="var(--border)" stroke-width="6" stroke-linecap="round"/>
-            <path d="M10 45 A35 35 0 0 1 70 45" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="40"/>
-            <text x="40" y="44" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="14" font-weight="700" fill="var(--ink)">54</text>
-          </svg>
-          <div class="dd-gauge-label" data-ar="من 100" data-en="of 100">من 100</div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="insights" onclick="showScreen('insights')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>رؤى</span><div class="nav-pip"></div></button>
-      <button class="nav-item active" data-screen="duediligence" onclick="showScreen('duediligence')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>تقييم</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <!-- ==================== شاشة 9: التقارير (Reports) ==================== -->
-  <div class="screen has-nav" id="s-reports">
-    <div class="topbar">
-      <div class="brand">
-        <button class="back-btn" onclick="showScreen('dashboard')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        Clarity<em>Finance</em>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()"><span class="theme-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span></button>
-        <button class="txt-btn lang-toggle" onclick="toggleLang()">EN</button>
-        <button class="power-btn" onclick="showScreen('login')" title="تسجيل الخروج / Logout"><svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></button>
-      </div>
-    </div>
-
-    <div class="page">
-      <div class="anim-1" style="background:linear-gradient(140deg,var(--green),#1A3D2E);border-radius:var(--r-l);padding:18px 20px;color:white;margin-bottom:14px;position:relative;overflow:hidden">
-        <div style="font-size:9px;font-weight:800;letter-spacing:1.2px;opacity:.5;margin-bottom:5px;text-transform:uppercase" data-ar="باقتك الحالية" data-en="CURRENT PLAN">باقتك الحالية</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1">
-          <div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700" data-ar="Free Plan" data-en="Free Plan">Free Plan</div>
-            <div style="font-size:11.5px;opacity:.6;margin-top:3px" data-ar="1 تقرير/شهر · أرشيف 30 يوم" data-en="1 report/month · 30-day archive">1 تقرير/شهر · أرشيف 30 يوم</div>
-          </div>
-          <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.2)" onclick="upgradePlan('pro')" data-ar="ترقية للـ Pro" data-en="Upgrade to Pro">ترقية للـ Pro</button>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px" class="anim-2">
-        <div style="background:var(--amber-2);border:1.5px solid var(--amber);border-radius:var(--r-m);padding:14px">
-          <div style="font-size:10px;font-weight:800;color:var(--amber);letter-spacing:.5px;margin-bottom:6px">PRO</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--ink)">99 <span style="font-size:11px;font-weight:400;color:var(--muted)">ر.س/شهر</span></div>
-          <div style="font-size:10.5px;color:var(--ink-2);margin:6px 0 10px;line-height:1.5" data-ar="تقارير غير محدودة · PDF · أرشيف دائم" data-en="Unlimited · PDF export · Forever archive">تقارير غير محدودة · PDF · أرشيف دائم</div>
-          <button class="btn btn-sm btn-primary" style="width:100%;height:32px;font-size:11.5px" onclick="upgradePlan('pro')" data-ar="اشترك" data-en="Subscribe">اشترك</button>
-        </div>
-        <div style="background:var(--blue-2);border:1.5px solid #93C5FD;border-radius:var(--r-m);padding:14px">
-          <div style="font-size:10px;font-weight:800;color:var(--blue);letter-spacing:.5px;margin-bottom:6px">INVESTOR ✦</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--ink)">299 <span style="font-size:11px;font-weight:400;color:var(--muted)">ر.س/شهر</span></div>
-          <div style="font-size:10.5px;color:var(--ink-2);margin:6px 0 10px;line-height:1.5" data-ar="كل Pro + Due Diligence + مقارنة متقدمة" data-en="All Pro + Due Diligence + Advanced compare">كل Pro + Due Diligence + مقارنة متقدمة</div>
-          <button class="btn btn-sm btn-outline" style="width:100%;height:32px;font-size:11.5px;border-color:#93C5FD;color:var(--blue)" onclick="upgradePlan('investor')" data-ar="اشترك" data-en="Subscribe">اشترك</button>
-        </div>
-      </div>
-
-      <button class="btn btn-primary btn-full anim-5" style="margin-top:14px" onclick="showScreen('upload')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span data-ar="رفع تقرير جديد" data-en="Upload new report">رفع تقرير جديد</span>
-      </button>
-    </div>
-
-    <nav class="bottom-nav">
-      <button class="nav-item" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>الرئيسية</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="upload" onclick="showScreen('upload')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>رفع</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="insights" onclick="showScreen('insights')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>رؤى</span><div class="nav-pip"></div></button>
-      <button class="nav-item" data-screen="duediligence" onclick="showScreen('duediligence')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>تقييم</span><div class="nav-pip"></div></button>
-      <button class="nav-item active" data-screen="reports" onclick="showScreen('reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>تقاريري</span><div class="nav-pip"></div></button>
-    </nav>
-  </div>
-
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
