@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClarityFinance v10.1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>ClarityFinance v10.2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1a3a3a; --accent: #d4af37; --bg: #f8f9fa;
@@ -15,6 +15,7 @@
         .stat-card { background: var(--surface); padding: 20px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .btn { padding: 10px 20px; border-radius: var(--radius); border: none; cursor: pointer; font-weight: bold; background: var(--primary); color: white; }
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .amount { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: bold; color: var(--primary); }
     </style>
 </head>
 <body>
@@ -26,8 +27,8 @@
     </header>
 
     <div class="stat-card">
-        <div id="label-profit" style="color: #636e72;"></div>
-        <div id="val-profit" style="font-size: 1.8rem; font-weight: bold; color: var(--primary);"></div>
+        <div id="label-profit" style="color: #636e72; margin-bottom: 8px;"></div>
+        <div id="val-profit" class="amount"></div>
     </div>
 
     <div id="upload-box" style="border: 2px dashed var(--accent); padding: 40px; text-align: center; border-radius: var(--radius); background: white;">
@@ -45,7 +46,6 @@
 <script>
     const App = {
         lang: 'ar',
-        // هذا هو القاموس - لا يوجد تداخل هنا
         words: {
             ar: {
                 langBtn: "English",
@@ -53,7 +53,7 @@
                 uploadTitle: "اسحب ملف الميزانية هنا (CSV)",
                 uploadBtn: "اختر الملف",
                 nav1: "الرئيسية", nav2: "التقارير", nav3: "الإعدادات",
-                currency: "ر.س"
+                symbol: "﷼" // رمز الريال العربي
             },
             en: {
                 langBtn: "العربية",
@@ -61,14 +61,14 @@
                 uploadTitle: "Drag & Drop Trial Balance (CSV)",
                 uploadBtn: "Choose File",
                 nav1: "Home", nav2: "Reports", nav3: "Settings",
-                currency: "SAR"
+                symbol: "SR" // رمز الريال بالإنجليزي
             }
         },
 
         updateUI() {
             const w = this.words[this.lang];
             
-            // تحديث النصوص
+            // 1. تحديث النصوص (تطهير كامل من التداخل)
             document.getElementById('lang-btn').innerText = w.langBtn;
             document.getElementById('label-profit').innerText = w.profit;
             document.getElementById('upload-text').innerText = w.uploadTitle;
@@ -77,13 +77,20 @@
             document.getElementById('nav-2').innerText = w.nav2;
             document.getElementById('nav-3').innerText = w.nav3;
 
-            // تحديث الرقم مع العملة الصحيحة لكل لغة
-            const amount = 125000;
-            document.getElementById('val-profit').innerText = 
-                this.lang === 'ar' ? `${amount.toLocaleString()} ${w.currency}` : `${w.currency} ${amount.toLocaleString()}`;
+            // 2. تحديث الرقم وتنسيق الرمز
+            const amount = 125000.75;
+            const formattedAmount = amount.toLocaleString(this.lang === 'ar' ? 'ar-SA' : 'en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
 
-            // تحديث اتجاه الصفحة
+            // عرض الرمز بجانب الرقم حسب اتجاه اللغة
+            document.getElementById('val-profit').innerText = 
+                this.lang === 'ar' ? `${formattedAmount} ${w.symbol}` : `${w.symbol} ${formattedAmount}`;
+
+            // 3. تحديث اتجاه الصفحة والخطوط
             document.body.style.direction = this.lang === 'ar' ? 'rtl' : 'ltr';
+            document.body.style.fontFamily = this.lang === 'ar' ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif";
         },
 
         toggleLang() {
@@ -92,7 +99,7 @@
         }
     };
 
-    // تشغيل التطبيق فوراً
+    // التشغيل الأولي
     App.updateUI();
 </script>
 
