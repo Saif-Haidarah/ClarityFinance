@@ -1,18 +1,21 @@
-"use strict";
-
-const CF = (function() {
-  // ── State Management ──
-  const State = {
-    _data: {
-      lang: localStorage.getItem('cf_lang') || 'ar',
-      theme: localStorage.getItem('cf_theme') || 'light'
+/**
+ * ClarityFinance - المحرك البرمجي
+ */
+const App = {
+    init() {
+        console.log("النظام جاهز...");
+        this.setupListeners();
     },
-    /* ... بقية منطق الجافاسكريبت ... */
-  };
 
-  // انسخ كل ما بداخل <script> من v10 وضعه هنا بالكامل
-  return { init, toggleLang, toggleTheme };
-})();
+    // التبديل بين الشاشات
+    showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+        document.getElementById(`screen-${screenId}`).style.display = 'block';
+    },
 
-// تشغيل التطبيق
-document.addEventListener('DOMContentLoaded', () => CF.init());
+    setupListeners() {
+        // هنا سنضيف كود معالجة الملفات لاحقاً
+    }
+};
+
+window.onload = () => App.init();
