@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>ClarityFinance v10 | الذكاء المالي</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        /* 1. التأسيس (Design Tokens) - ألوان موحدة لسهولة التعديل */
+        :root {
+            --primary: #1a3a3a;    /* أخضر غامق احترافي */
+            --accent: #d4af37;     /* ذهبي خفيف للنسب المالية */
+            --bg: #f8f9fa;         /* خلفية مريحة */
+            --surface: #ffffff;    /* لون البطاقات */
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --success: #00b894;
+            --danger: #d63031;
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* 2. التنسيق العام */
+        body {
+            font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding-bottom: 80px; /* مكان للبار السفلي في الجوال */
+        }
+
+        /* 3. الهيكل (Layout) */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* بطاقات المؤشرات الممالية */
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid #edf2f7;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover { transform: translateY(-5px); }
+
+        .stat-label { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 8px; }
+        .stat-value { font-family: 'JetBrains Mono', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+
+        /* الأزرار الاحترافية */
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { opacity: 0.9; }
+
+        /* شريط التنقل السفلي للجوال */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--surface);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <div>
+            <h1 id="app-title" style="margin:0; color: var(--primary);">ClarityFinance</h1>
+            <p id="app-subtitle" style="color: var(--text-sub);">نظام دعم القرار المالي الذكي</p>
+        </div>
+        <button class="btn btn-primary" onclick="Logic.toggleLanguage()">EN / عربي</button>
+    </header>
+
+    <div class="grid-stats">
+        <div class="stat-card">
+            <div class="stat-label" data-key="net_profit">صافي الربح</div>
+            <div class="stat-value" id="val-profit">125,000.00</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label" data-key="revenue">إجمالي الإيرادات</div>
+            <div class="stat-value" id="val-revenue">450,000.00</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label" data-key="expenses">المصاريف</div>
+            <div class="stat-value" id="val-expenses" style="color: var(--danger);">325,000.00</div>
+        </div>
+    </div>
+
+    <section id="upload-section" style="background: white; padding: 40px; border-radius: var(--radius); text-align: center; border: 2px dashed var(--accent);">
+        <h3 data-key="upload_title">ارفع ميزان المراجعة (CSV)</h3>
+        <p style="color: var(--text-sub);">سيقوم النظام بتحليل البيانات وتوليد التقارير فوراً</p>
+        <input type="file" id="csvFile" style="display: none;" accept=".csv">
+        <button class="btn btn-primary" onclick="document.getElementById('csvFile').click()" data-key="btn_upload">اختيار الملف</button>
+    </section>
+</div>
+
+<nav class="bottom-nav">
+    <div data-key="nav_home">الرئيسية</div>
+    <div data-key="nav_reports">التقارير</div>
+    <div data-key="nav_inventory">المخزون</div>
+    <div data-key="nav_settings">الإعدادات</div>
+</nav>
+
+<script>
+    /* ═══════════════════════════════════════════════════════
+       محرك الذكاء المالي (Logic Engine) - v10
+       ═══════════════════════════════════════════════════════ */
+    
+    const Logic = {
+        lang: 'ar',
+        
+        // 1. قاموس الترجمة الموحد
+        i18n: {
+            ar: {
+                net_profit: "صافي الربح",
+                revenue: "إجمالي الإيرادات",
+                expenses: "المصاريف",
+                upload_title: "ارفع ميزان المراجعة (CSV)",
+                btn_upload: "اختيار الملف",
+                nav_home: "الرئيسية",
+                nav_reports: "التقارير",
+                nav_inventory: "المخزون",
+                nav_settings: "الإعدادات"
+            },
+            en: {
+                net_profit: "Net Profit",
+                revenue: "Total Revenue",
+                expenses: "Expenses",
+                upload_title: "Upload Trial Balance (CSV)",
+                btn_upload: "Choose File",
+                nav_home: "Home",
+                nav_reports: "Reports",
+                nav_inventory: "Inventory",
+                nav_settings: "Settings"
+            }
+        },
+
+        // 2. محرك تنسيق العملات
+        formatCurrency(num) {
+            return new Intl.NumberFormat(this.lang === 'ar' ? 'ar-SA' : 'en-US', {
+                style: 'currency',
+                currency: 'SAR',
+            }).format(num);
+        },
+
+        // 3. تبديل اللغة بضغطة زر
+        toggleLanguage() {
+            this.lang = this.lang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = this.lang;
+            this.updateUI();
+        },
+
+        // تحديث جميع النصوص في الصفحة
+        updateUI() {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                el.innerText = this.i18n[this.lang][key];
+            });
+            // تحديث الأرقام لتناسب اللغة
+            document.getElementById('val-profit').innerText = this.formatCurrency(125000);
+            document.getElementById('val-revenue').innerText = this.formatCurrency(450000);
+            document.getElementById('val-expenses').innerText = this.formatCurrency(325000);
+        }
+    };
+
+    // تشغيل التنسيق عند فتح الصفحة لأول مرة
+    window.onload = () => Logic.updateUI();
+</script>
+
+</body>
+</html>
