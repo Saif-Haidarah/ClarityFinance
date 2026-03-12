@@ -1,30 +1,54 @@
-<main class="main-content">
-    <section id="screen-upload" class="screen">
-        <div class="upload-container">
-            <div class="upload-box" id="dropzone">
-                <i class="icon-upload"></i>
-                <h2>ارفع ملف البيانات المالي</h2>
-                <p>يدعم CSV و Excel بناءً على معايير ClarityFinance</p>
-                <input type="file" id="fileInput" hidden>
-                <button class="btn-primary" onclick="document.getElementById('fileInput').click()">تصفح الملفات</button>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClarityFinance | لوحة التحكم</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="app-core">
+
+    <div class="app-layout">
+        <aside class="sidebar-nav">
+            <div class="brand-logo">Clarity<span>Finance</span></div>
+            <nav class="nav-menu">
+                <button onclick="App.showScreen('dashboard')" class="nav-link active">الرئيسية</button>
+                <button onclick="App.showScreen('upload')" class="nav-link">رفع البيانات</button>
+                <button onclick="App.showScreen('reports')" class="nav-link">التقارير</button>
+            </nav>
+        </aside>
+
+        <main class="content-wrapper">
+            <header class="main-header">
+                <div class="user-greeting">أهلاً بك في <span>Clarity</span></div>
+                <button id="langBtn" class="btn-secondary" onclick="App.toggleLang()">English</button>
+            </header>
+
+            <div id="screen-content">
+                <section id="screen-upload" class="screen-view">
+                    <div class="hero-upload">
+                        <div class="upload-card">
+                            <div class="icon-box">📤</div>
+                            <h2>اسحب ملف الـ CSV هنا</h2>
+                            <p>حول أرقامك الخام إلى قرارات واضحة</p>
+                            <input type="file" id="fileInput" hidden accept=".csv,.xlsx">
+                            <button class="btn-primary-lg" onclick="document.getElementById('fileInput').click()">اختيار ملف</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="screen-dashboard" class="screen-view" style="display:none;">
+                    <div class="stats-row">
+                        <div class="kpi-card"><h3>الإيرادات</h3><p id="rev-val">0 ﷼</p></div>
+                        <div class="kpi-card"><h3>المصاريف</h3><p id="exp-val">0 ﷼</p></div>
+                        <div class="kpi-card highlight"><h3>صافي الربح</h3><p id="profit-val">0 ﷼</p></div>
+                    </div>
+                </section>
             </div>
-        </div>
-    </section>
+        </main>
+    </div>
 
-    <section id="screen-dashboard" class="screen" style="display: none;">
-        <div class="dashboard-header">
-            <h1>لوحة التحكم المالية</h1>
-            <div class="health-score-mini">Health Score: <span>--</span></div>
-        </div>
-        
-        <div class="stats-grid">
-            <div class="stat-card"><h3>الإيرادات</h3><p id="total-revenue">0 ﷼</p></div>
-            <div class="stat-card"><h3>المصاريف</h3><p id="total-expenses">0 ﷼</p></div>
-            <div class="stat-card"><h3>صافي الربح</h3><p id="net-profit">0 ﷼</p></div>
-        </div>
-
-        <div class="charts-section">
-            <canvas id="mainChart"></canvas>
-        </div>
-    </section>
-</main>
+    <script src="app.js"></script>
+</body>
+</html>
