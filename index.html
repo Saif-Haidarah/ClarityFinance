@@ -3,44 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClarityFinance v10.2</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <title>ClarityFinance v10.3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Tajawal:wght@500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1a3a3a; --accent: #d4af37; --bg: #f8f9fa;
             --surface: #ffffff; --text-main: #2d3436; --radius: 12px;
         }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; transition: all 0.3s; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); margin: 0; transition: all 0.3s; color: var(--text-main); }
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .stat-card { background: var(--surface); padding: 20px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .btn { padding: 10px 20px; border-radius: var(--radius); border: none; cursor: pointer; font-weight: bold; background: var(--primary); color: white; }
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
-        .amount { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .stat-card { background: var(--surface); padding: 25px; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #eee; }
+        .btn { padding: 12px 24px; border-radius: var(--radius); border: none; cursor: pointer; font-weight: bold; background: var(--primary); color: white; transition: 0.2s; }
+        .btn:active { transform: scale(0.98); }
+        .amount-box { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
+        .num { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: bold; color: var(--primary); }
+        .symbol { font-size: 1.2rem; color: var(--accent); font-weight: bold; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.02); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h2 id="logo">ClarityFinance</h2>
+    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <h2 id="logo" style="color: var(--primary); letter-spacing: -1px;">ClarityFinance</h2>
         <button class="btn" onclick="App.toggleLang()" id="lang-btn">English</button>
     </header>
 
     <div class="stat-card">
-        <div id="label-profit" style="color: #636e72; margin-bottom: 8px;"></div>
-        <div id="val-profit" class="amount"></div>
+        <div id="label-profit" style="color: #636e72; font-size: 0.95rem;"></div>
+        <div class="amount-box">
+            <span id="val-profit" class="num"></span>
+            <span class="symbol">﷼</span>
+        </div>
     </div>
 
-    <div id="upload-box" style="border: 2px dashed var(--accent); padding: 40px; text-align: center; border-radius: var(--radius); background: white;">
-        <h3 id="upload-text"></h3>
-        <button class="btn" id="upload-btn"></button>
+    <div id="upload-box" style="border: 2px dashed #cbd5e0; padding: 50px 20px; text-align: center; border-radius: var(--radius); background: white; transition: 0.3s;">
+        <h3 id="upload-text" style="margin-bottom: 20px;"></h3>
+        <button class="btn" id="upload-btn" style="background: var(--accent); color: var(--primary);"></button>
     </div>
 </div>
 
 <nav class="nav-bar">
-    <div id="nav-1"></div>
-    <div id="nav-2"></div>
-    <div id="nav-3"></div>
+    <div id="nav-1" style="font-weight: 600;"></div>
+    <div id="nav-2" style="font-weight: 600;"></div>
+    <div id="nav-3" style="font-weight: 600;"></div>
 </nav>
 
 <script>
@@ -52,23 +58,21 @@
                 profit: "صافي الربح المتوقع",
                 uploadTitle: "اسحب ملف الميزانية هنا (CSV)",
                 uploadBtn: "اختر الملف",
-                nav1: "الرئيسية", nav2: "التقارير", nav3: "الإعدادات",
-                symbol: "﷼" // رمز الريال العربي
+                nav1: "الرئيسية", nav2: "التقارير", nav3: "الإعدادات"
             },
             en: {
                 langBtn: "العربية",
                 profit: "Expected Net Profit",
                 uploadTitle: "Drag & Drop Trial Balance (CSV)",
                 uploadBtn: "Choose File",
-                nav1: "Home", nav2: "Reports", nav3: "Settings",
-                symbol: "SR" // رمز الريال بالإنجليزي
+                nav1: "Home", nav2: "Reports", nav3: "Settings"
             }
         },
 
         updateUI() {
             const w = this.words[this.lang];
             
-            // 1. تحديث النصوص (تطهير كامل من التداخل)
+            // تحديث النصوص
             document.getElementById('lang-btn').innerText = w.langBtn;
             document.getElementById('label-profit').innerText = w.profit;
             document.getElementById('upload-text').innerText = w.uploadTitle;
@@ -77,20 +81,19 @@
             document.getElementById('nav-2').innerText = w.nav2;
             document.getElementById('nav-3').innerText = w.nav3;
 
-            // 2. تحديث الرقم وتنسيق الرمز
-            const amount = 125000.75;
-            const formattedAmount = amount.toLocaleString(this.lang === 'ar' ? 'ar-SA' : 'en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+            // تحديث الرقم وتنسيقه
+            const amount = 125000.00;
+            document.getElementById('val-profit').innerText = amount.toLocaleString(this.lang === 'ar' ? 'ar-SA' : 'en-US', {
+                minimumFractionDigits: 2
             });
 
-            // عرض الرمز بجانب الرقم حسب اتجاه اللغة
-            document.getElementById('val-profit').innerText = 
-                this.lang === 'ar' ? `${formattedAmount} ${w.symbol}` : `${w.symbol} ${formattedAmount}`;
-
-            // 3. تحديث اتجاه الصفحة والخطوط
-            document.body.style.direction = this.lang === 'ar' ? 'rtl' : 'ltr';
+            // تحديث الاتجاه
+            document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
             document.body.style.fontFamily = this.lang === 'ar' ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif";
+            
+            // تغيير مكان الرمز بناءً على اللغة ليكون التنسيق صحيحاً
+            const box = document.querySelector('.amount-box');
+            box.style.flexDirection = this.lang === 'ar' ? 'row' : 'row-reverse';
         },
 
         toggleLang() {
@@ -99,7 +102,6 @@
         }
     };
 
-    // التشغيل الأولي
     App.updateUI();
 </script>
 
