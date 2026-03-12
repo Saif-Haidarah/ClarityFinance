@@ -1,14 +1,27 @@
-/* تنسيقات واجهة ClarityFinance من ملف v10 */
+/* تنسيقات ClarityFinance الأصلية */
 :root {
-    --primary-green: #1a5c40;
-    --accent-gold: #d4af37;
-    --glass-bg: rgba(255, 255, 255, 0.9);
+    --primary: #1a3a3a;
+    --accent: #d4af37;
+    --bg: #f8f9fa;
+    --surface: #ffffff;
 }
 
 body {
     margin: 0;
     font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
-    background: linear-gradient(135deg, #f0f2ee 0%, #e6e9e0 100%);
+    background: var(--bg);
 }
 
-/* أضف بقية الأكواد الموجودة في ملفك v10 هنا */
+/* الأقسام الأساسية من تصميمك */
+.app-container { display: flex; min-height: 100vh; }
+.sidebar { width: 250px; background: var(--primary); color: white; padding: 20px; }
+.main-content { flex: 1; padding: 30px; }
+
+/* تأثيرات الـ Glassmorphism التي أحببتها */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
